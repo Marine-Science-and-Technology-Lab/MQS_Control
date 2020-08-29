@@ -1,0 +1,2 @@
+receive_data:signal_check:simulink:xbee:xbox
+-DCATKIN_DEVEL_PREFIX=/home/michael/quadski_control/devel -DCMAKE_INSTALL_PREFIX=/home/michael/quadski_control/install -G Unix Makefiles

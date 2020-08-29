@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<launch>
+	<!-- MQS Teleop Node-->
+	<node pkg="xbox" type="mqs_teleop" name="teleop" />
+
+	<!-- joy node -->
+	<node respawn="true" pkg="joy" type="joy_node" name="mqs_joy">
+	<param name="dev" type="string" value="/dev/input/js2" />
+	<param name="deadzone" value="0.1" />
+	</node>
+
+	<!-- Xbee Node -->
+	<node pkg="xbee" type="mqs_xbee.py" name="mqs_xbee" />
+
+	<!-- Axes parameters-->
+	<param name="steer_marine" value="0" type="int" />
+	<param name="reverse" value="2" type="int"/>
+	<param name="steer_land" value="3" type="int" />
+	<param name="throttle" value="4" type="int" />
+	<param name="forward" value="5" type="int" />
+
+	<param name="scale_steer_marine" value="127" type="int" />
+	<param name="scale_reverse" value="64" type="int" />
+	<param name="scale_steer_land" value="127" type="int" />
+	<param name="scale_throttle" value="255" type="int" />
+	<param name="scale_forward" value="-64" type="int" />
+	
+	<param name="shift_steer_marine" value="127" type="int"/>
+	<param name="shift_reverse" value="64" type="int"/>
+	<param name="shift_steer_land" value="127" type="int"/>
+	<param name="shift_throttle" value="0" type="int"/>
+	<param name="shift_forward" value="191" type="int"/>
+
+</launch>
