@@ -131,7 +131,7 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/michael/quadski_control/build/gtest/cmake_install.cmake")
-  include("/home/michael/quadski_control/build/receive_data/cmake_install.cmake")
+  include("/home/michael/quadski_control/build/gui_keyboard/cmake_install.cmake")
   include("/home/michael/quadski_control/build/signal_check/cmake_install.cmake")
   include("/home/michael/quadski_control/build/simulink/cmake_install.cmake")
   include("/home/michael/quadski_control/build/xbee/cmake_install.cmake")

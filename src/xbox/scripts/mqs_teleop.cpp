@@ -36,7 +36,7 @@
  TeleopMQS::TeleopMQS():
   strm(0), //marine steering on LS <->
   rev(2), //land rev on LT
-  strl(3), //land steer on RS <->
+  strl(3), //land steer on RS <->  
   thl(4), //marine throttle on RS ^ only
   fwd(5), //land fwd on RT
   esc(0), //esc binary on A
@@ -69,7 +69,7 @@
 
 
    //publish message to topic cmd_ctrl, queue size is 2 messages
-   cmd_ctrl_pub = nh_.advertise<xbee::cmd_ctrl>("cmds", 2);
+   cmd_ctrl_pub = nh_.advertise<xbee::cmd_ctrl>("cmd_ctrls", 2);
  
  
    joy_sub_ = nh_.subscribe<sensor_msgs::Joy>("joy", 10, &TeleopMQS::joyCallback, this);
@@ -111,125 +111,125 @@
    {
     //int() converts float values from joy.msg to byte values
     //strm on channel 0
-    cmd_ctrl_.cmds[0]=int(strm_scale*marine_joy.strm+strm_shift);
+    cmd_ctrl_.cmd_ctrls[0]=int(strm_scale*marine_joy.strm+strm_shift);
     
     //fwd/rev on channel 1
     if(land_joy.fwd<1) //only input on LT
     {
       //go forward
-      cmd_ctrl_.cmds[1]=int(fwd_scale*land_joy.fwd+fwd_shift);
+      cmd_ctrl_.cmd_ctrls[1]=int(fwd_scale*land_joy.fwd+fwd_shift);
     }
     else if (land_joy.rev<1) //only input on RT
     {
       //if the reverse trigger only is pressed
-      cmd_ctrl_.cmds[1]=int(rev_scale*land_joy.rev+rev_shift);
+      cmd_ctrl_.cmd_ctrls[1]=int(rev_scale*land_joy.rev+rev_shift);
     }
     else if (land_joy.fwd<1 && land_joy.rev<1)
     {
       //if they're both pressed do nothing, sorry no burnouts :(
-      cmd_ctrl_.cmds[1]=127;
+      cmd_ctrl_.cmd_ctrls[1]=127;
     }
     if (land_joy.fwd==1 && land_joy.rev==1) //if neither are pressed do nothing, actually not sure how necessary this one is
     {
-      cmd_ctrl_.cmds[1]=127;
+      cmd_ctrl_.cmd_ctrls[1]=127;
     }
     //marine throttle on channel 2
     if(marine_joy.thl<0) //if the throttle reads negative do nothing
     {
-      cmd_ctrl_.cmds[2]=0;
+      cmd_ctrl_.cmd_ctrls[2]=0;
     }
     else
     {
-      cmd_ctrl_.cmds[2]=int(thl_scale*marine_joy.thl+thl_shift);
+      cmd_ctrl_.cmd_ctrls[2]=int(thl_scale*marine_joy.thl+thl_shift);
     }
 
     //strl on channel 3
-    cmd_ctrl_.cmds[3]=int(strl_scale*land_joy.strl+strl_shift);
+    cmd_ctrl_.cmd_ctrls[3]=int(strl_scale*land_joy.strl+strl_shift);
     
     //on-off switch for esc on channel 4
     if (op_joy.esc==1 && prev_[0]==0) //if esc button is pressed the first time turn it on
     {
       esc_on= !esc_on;
-      cmd_ctrl_.cmds[4]=op_joy.esc;
+      cmd_ctrl_.cmd_ctrls[4]=op_joy.esc;
     }
     if (esc_on==true)
     {
-      cmd_ctrl_.cmds[4]=1; //hold esc on
+      cmd_ctrl_.cmd_ctrls[4]=1; //hold esc on
     }
     else
     {
-      cmd_ctrl_.cmds[4]=0;
+      cmd_ctrl_.cmd_ctrls[4]=0;
     }
 
     //on-off switch for bilge pump on channel 5
     if (op_joy.bp==1 && prev_[1]==0) //if bp button is pressed the first time turn it on
     {
       bp_on= !bp_on;
-      cmd_ctrl_.cmds[5]=op_joy.bp;
+      cmd_ctrl_.cmd_ctrls[5]=op_joy.bp;
     }
     if (bp_on==true)
     {
-      cmd_ctrl_.cmds[5]=1; //hold bp on
+      cmd_ctrl_.cmd_ctrls[5]=1; //hold bp on
     }
     else
     {
-      cmd_ctrl_.cmds[5]=0;
+      cmd_ctrl_.cmd_ctrls[5]=0;
     }
 
     //on-off switch for DAQ on channel 6
     if (op_joy.daq==1 && prev_[2]==0) //if daq button is pressed the first time turn it on
     {
       daq_on= !daq_on;
-      cmd_ctrl_.cmds[6]=op_joy.daq;
+      cmd_ctrl_.cmd_ctrls[6]=op_joy.daq;
     }
     if (daq_on==true)
     {
-      cmd_ctrl_.cmds[6]=1; //hold daq on
+      cmd_ctrl_.cmd_ctrls[6]=1; //hold daq on
     }
     else
     {
-      cmd_ctrl_.cmds[6]=0;
+      cmd_ctrl_.cmd_ctrls[6]=0;
     }
     //on-off switch for wheel retraction on channel 7
     if (op_joy.wrt==1 && prev_[4]==0) //if wrt button is pressed the first time turn it on
     {
       wrt_on= !wrt_on;
-      cmd_ctrl_.cmds[7]=op_joy.wrt;
+      cmd_ctrl_.cmd_ctrls[7]=op_joy.wrt;
     }
     if (wrt_on==true)
     {
-      cmd_ctrl_.cmds[7]=1; //hold wrt on
+      cmd_ctrl_.cmd_ctrls[7]=1; //hold wrt on
     }
     else
     {
-      cmd_ctrl_.cmds[7]=0;
+      cmd_ctrl_.cmd_ctrls[7]=0;
     }
 
     //on-off switch for cooling pump on channel 8
     if (op_joy.cp==1 && prev_[3]==0) //if cp button is pressed the first time turn it on
     {
       cp_on= !cp_on;
-      cmd_ctrl_.cmds[8]=op_joy.cp;
+      cmd_ctrl_.cmd_ctrls[8]=op_joy.cp;
     }
     if (cp_on==true)
     {
-      cmd_ctrl_.cmds[8]=1; //hold cp on
+      cmd_ctrl_.cmd_ctrls[8]=1; //hold cp on
     }
     else
     {
-      cmd_ctrl_.cmds[8]=0;
+      cmd_ctrl_.cmd_ctrls[8]=0;
     }
 
     //rvm on channel 9
-    cmd_ctrl_.cmds[9]=op_joy.rvm;
+    cmd_ctrl_.cmd_ctrls[9]=op_joy.rvm;
     //abort to RC transmitter on channel 10
-    cmd_ctrl_.cmds[10]=op_joy.abort; //If this is true joystick operation will be switched off on the arduino
+    cmd_ctrl_.cmd_ctrls[10]=op_joy.abort; //If this is true joystick operation will be switched off on the arduino
     //last 5 channels are open
-    cmd_ctrl_.cmds[11]=0;
-    cmd_ctrl_.cmds[12]=0;
-    cmd_ctrl_.cmds[13]=0;
-    cmd_ctrl_.cmds[14]=0;
-    cmd_ctrl_.cmds[15]=0;
+    cmd_ctrl_.cmd_ctrls[11]=0;
+    cmd_ctrl_.cmd_ctrls[12]=0;
+    cmd_ctrl_.cmd_ctrls[13]=0;
+    cmd_ctrl_.cmd_ctrls[14]=0;
+    cmd_ctrl_.cmd_ctrls[15]=0;
 
    }
    cmd_ctrl_pub.publish(cmd_ctrl_);

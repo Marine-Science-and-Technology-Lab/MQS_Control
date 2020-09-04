@@ -7,14 +7,14 @@ import struct
 
 
 class cmd_ctrl(genpy.Message):
-  _md5sum = "65c47160f0c57a1a6dca334e2e8b2754"
+  _md5sum = "0180a78c48bb4a1e71184e050bf8b39c"
   _type = "xbee/cmd_ctrl"
   _has_header = False  # flag to mark the presence of a Header object
-  _full_text = """#Message where each sub command message for the MQS is published into
+  _full_text = """#Message where each sub command from joy or keyboard message for the MQS is published into
 
-uint8[16] cmds
+uint8[16] cmd_ctrls
 """
-  __slots__ = ['cmds']
+  __slots__ = ['cmd_ctrls']
   _slot_types = ['uint8[16]']
 
   def __init__(self, *args, **kwds):
@@ -25,7 +25,7 @@ uint8[16] cmds
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       cmds
+       cmd_ctrls
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -34,10 +34,10 @@ uint8[16] cmds
     if args or kwds:
       super(cmd_ctrl, self).__init__(*args, **kwds)
       # message fields cannot be None, assign default values for those that are
-      if self.cmds is None:
-        self.cmds = b'\0'*16
+      if self.cmd_ctrls is None:
+        self.cmd_ctrls = b'\0'*16
     else:
-      self.cmds = b'\0'*16
+      self.cmd_ctrls = b'\0'*16
 
   def _get_types(self):
     """
@@ -51,7 +51,7 @@ uint8[16] cmds
     :param buff: buffer, ``StringIO``
     """
     try:
-      _x = self.cmds
+      _x = self.cmd_ctrls
       # - if encoded as a list instead, serialize as bytes instead of string
       if type(_x) in [list, tuple]:
         buff.write(_get_struct_16B().pack(*_x))
@@ -69,7 +69,7 @@ uint8[16] cmds
       end = 0
       start = end
       end += 16
-      self.cmds = str[start:end]
+      self.cmd_ctrls = str[start:end]
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -82,7 +82,7 @@ uint8[16] cmds
     :param numpy: numpy python module
     """
     try:
-      _x = self.cmds
+      _x = self.cmd_ctrls
       # - if encoded as a list instead, serialize as bytes instead of string
       if type(_x) in [list, tuple]:
         buff.write(_get_struct_16B().pack(*_x))
@@ -101,7 +101,7 @@ uint8[16] cmds
       end = 0
       start = end
       end += 16
-      self.cmds = str[start:end]
+      self.cmd_ctrls = str[start:end]
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill

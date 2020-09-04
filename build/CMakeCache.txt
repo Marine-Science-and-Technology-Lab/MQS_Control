@@ -385,10 +385,10 @@ message_generation_DIR:PATH=/opt/ros/melodic/share/message_generation/cmake
 message_runtime_DIR:PATH=/opt/ros/melodic/share/message_runtime/cmake
 
 //Value Computed by CMake
-receive_data_BINARY_DIR:STATIC=/home/michael/quadski_control/build/receive_data
+receive_data_BINARY_DIR:STATIC=/home/michael/quadski_control/build/gui_keyboard
 
 //Value Computed by CMake
-receive_data_SOURCE_DIR:STATIC=/home/michael/quadski_control/src/receive_data
+receive_data_SOURCE_DIR:STATIC=/home/michael/quadski_control/src/gui_keyboard
 
 //The directory containing a CMake configuration file for rosconsole.
 rosconsole_DIR:PATH=/opt/ros/melodic/share/rosconsole/cmake

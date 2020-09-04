@@ -53,16 +53,30 @@ CMAKE_BINARY_DIR = /home/michael/quadski_control/build
 # Include the progress variables for this target.
 include xbee/CMakeFiles/xbee_generate_messages_lisp.dir/progress.make
 
+xbee/CMakeFiles/xbee_generate_messages_lisp: /home/michael/quadski_control/devel/share/common-lisp/ros/xbee/msg/mqs_ctrl.lisp
 xbee/CMakeFiles/xbee_generate_messages_lisp: /home/michael/quadski_control/devel/share/common-lisp/ros/xbee/msg/cmd_ctrl.lisp
+xbee/CMakeFiles/xbee_generate_messages_lisp: /home/michael/quadski_control/devel/share/common-lisp/ros/xbee/msg/auto_ctrl.lisp
 
+
+/home/michael/quadski_control/devel/share/common-lisp/ros/xbee/msg/mqs_ctrl.lisp: /opt/ros/melodic/lib/genlisp/gen_lisp.py
+/home/michael/quadski_control/devel/share/common-lisp/ros/xbee/msg/mqs_ctrl.lisp: /home/michael/quadski_control/src/xbee/msg/mqs_ctrl.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/michael/quadski_control/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Lisp code from xbee/mqs_ctrl.msg"
+	cd /home/michael/quadski_control/build/xbee && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/michael/quadski_control/src/xbee/msg/mqs_ctrl.msg -Ixbee:/home/michael/quadski_control/src/xbee/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p xbee -o /home/michael/quadski_control/devel/share/common-lisp/ros/xbee/msg
 
 /home/michael/quadski_control/devel/share/common-lisp/ros/xbee/msg/cmd_ctrl.lisp: /opt/ros/melodic/lib/genlisp/gen_lisp.py
 /home/michael/quadski_control/devel/share/common-lisp/ros/xbee/msg/cmd_ctrl.lisp: /home/michael/quadski_control/src/xbee/msg/cmd_ctrl.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/michael/quadski_control/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Lisp code from xbee/cmd_ctrl.msg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/michael/quadski_control/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Lisp code from xbee/cmd_ctrl.msg"
 	cd /home/michael/quadski_control/build/xbee && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/michael/quadski_control/src/xbee/msg/cmd_ctrl.msg -Ixbee:/home/michael/quadski_control/src/xbee/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p xbee -o /home/michael/quadski_control/devel/share/common-lisp/ros/xbee/msg
 
+/home/michael/quadski_control/devel/share/common-lisp/ros/xbee/msg/auto_ctrl.lisp: /opt/ros/melodic/lib/genlisp/gen_lisp.py
+/home/michael/quadski_control/devel/share/common-lisp/ros/xbee/msg/auto_ctrl.lisp: /home/michael/quadski_control/src/xbee/msg/auto_ctrl.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/michael/quadski_control/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Lisp code from xbee/auto_ctrl.msg"
+	cd /home/michael/quadski_control/build/xbee && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/michael/quadski_control/src/xbee/msg/auto_ctrl.msg -Ixbee:/home/michael/quadski_control/src/xbee/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p xbee -o /home/michael/quadski_control/devel/share/common-lisp/ros/xbee/msg
+
 xbee_generate_messages_lisp: xbee/CMakeFiles/xbee_generate_messages_lisp
+xbee_generate_messages_lisp: /home/michael/quadski_control/devel/share/common-lisp/ros/xbee/msg/mqs_ctrl.lisp
 xbee_generate_messages_lisp: /home/michael/quadski_control/devel/share/common-lisp/ros/xbee/msg/cmd_ctrl.lisp
+xbee_generate_messages_lisp: /home/michael/quadski_control/devel/share/common-lisp/ros/xbee/msg/auto_ctrl.lisp
 xbee_generate_messages_lisp: xbee/CMakeFiles/xbee_generate_messages_lisp.dir/build.make
 
 .PHONY : xbee_generate_messages_lisp

@@ -12,6 +12,12 @@
 	<!-- Xbee Node -->
 	<node pkg="xbee" type="mqs_xbee.py" name="mqs_xbee" />
 
+	<!-- auto Node -->
+	<node pkg="xbee" type="mqs_autoRelease.py" name="mqs_auto_release" />
+
+	<!-- handshake Node -->
+	<node pkg="xbee" type="mqs_handshake" name="handshake" />
+
 	<!-- Axes parameters-->
 	<param name="steer_marine" value="0" type="int" />
 	<param name="reverse" value="2" type="int"/>

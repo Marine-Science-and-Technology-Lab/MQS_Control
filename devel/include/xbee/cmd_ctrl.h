@@ -24,19 +24,19 @@ struct cmd_ctrl_
   typedef cmd_ctrl_<ContainerAllocator> Type;
 
   cmd_ctrl_()
-    : cmds()  {
-      cmds.assign(0);
+    : cmd_ctrls()  {
+      cmd_ctrls.assign(0);
   }
   cmd_ctrl_(const ContainerAllocator& _alloc)
-    : cmds()  {
+    : cmd_ctrls()  {
   (void)_alloc;
-      cmds.assign(0);
+      cmd_ctrls.assign(0);
   }
 
 
 
-   typedef boost::array<uint8_t, 16>  _cmds_type;
-  _cmds_type cmds;
+   typedef boost::array<uint8_t, 16>  _cmd_ctrls_type;
+  _cmd_ctrls_type cmd_ctrls;
 
 
 
@@ -67,7 +67,7 @@ return s;
 template<typename ContainerAllocator1, typename ContainerAllocator2>
 bool operator==(const ::xbee::cmd_ctrl_<ContainerAllocator1> & lhs, const ::xbee::cmd_ctrl_<ContainerAllocator2> & rhs)
 {
-  return lhs.cmds == rhs.cmds;
+  return lhs.cmd_ctrls == rhs.cmd_ctrls;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -124,12 +124,12 @@ struct MD5Sum< ::xbee::cmd_ctrl_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "65c47160f0c57a1a6dca334e2e8b2754";
+    return "0180a78c48bb4a1e71184e050bf8b39c";
   }
 
   static const char* value(const ::xbee::cmd_ctrl_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x65c47160f0c57a1aULL;
-  static const uint64_t static_value2 = 0x6dca334e2e8b2754ULL;
+  static const uint64_t static_value1 = 0x0180a78c48bb4a1eULL;
+  static const uint64_t static_value2 = 0x71184e050bf8b39cULL;
 };
 
 template<class ContainerAllocator>
@@ -148,9 +148,9 @@ struct Definition< ::xbee::cmd_ctrl_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "#Message where each sub command message for the MQS is published into\n"
+    return "#Message where each sub command from joy or keyboard message for the MQS is published into\n"
 "\n"
-"uint8[16] cmds\n"
+"uint8[16] cmd_ctrls\n"
 ;
   }
 
@@ -169,7 +169,7 @@ namespace serialization
   {
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
-      stream.next(m.cmds);
+      stream.next(m.cmd_ctrls);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -188,11 +188,11 @@ struct Printer< ::xbee::cmd_ctrl_<ContainerAllocator> >
 {
   template<typename Stream> static void stream(Stream& s, const std::string& indent, const ::xbee::cmd_ctrl_<ContainerAllocator>& v)
   {
-    s << indent << "cmds[]" << std::endl;
-    for (size_t i = 0; i < v.cmds.size(); ++i)
+    s << indent << "cmd_ctrls[]" << std::endl;
+    for (size_t i = 0; i < v.cmd_ctrls.size(); ++i)
     {
-      s << indent << "  cmds[" << i << "]: ";
-      Printer<uint8_t>::stream(s, indent + "  ", v.cmds[i]);
+      s << indent << "  cmd_ctrls[" << i << "]: ";
+      Printer<uint8_t>::stream(s, indent + "  ", v.cmd_ctrls[i]);
     }
   }
 };

@@ -2,7 +2,7 @@
 import rospy
 import XBee
 from time import sleep
-from xbee.msg import cmd_ctrl
+from xbee.msg import mqs_ctrl
 from rospy.numpy_msg import numpy_msg
 
 
@@ -25,9 +25,9 @@ def xbee_send(cmds):
 def mqs_xbee():
     rospy.init_node('mqs_xbee', anonymous=True)
     #subscribe to cmd_ctrl
-    rospy.Subscriber("cmds",numpy_msg(cmd_ctrl),xbee_send)
+    rospy.Subscriber("cmds",numpy_msg(mqs_ctrl),xbee_send)
     #for debugging
-    rospy.Subscriber("cmds",numpy_msg(cmd_ctrl),callback)
+    rospy.Subscriber("cmds",numpy_msg(mqs_ctrl),callback)
 
     rospy.spin()
 

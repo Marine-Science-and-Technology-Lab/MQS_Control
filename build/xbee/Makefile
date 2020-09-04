@@ -80,6 +80,27 @@ install/fast: preinstall/fast
 	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -113,27 +134,6 @@ test:
 test/fast: test
 
 .PHONY : test/fast
-
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-
-.PHONY : list_install_components/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -211,6 +211,21 @@ xbee_generate_messages_nodejs: xbee/CMakeFiles/xbee_generate_messages_nodejs.dir
 xbee_generate_messages_nodejs/fast:
 	cd /home/michael/quadski_control/build && $(MAKE) -f xbee/CMakeFiles/xbee_generate_messages_nodejs.dir/build.make xbee/CMakeFiles/xbee_generate_messages_nodejs.dir/build
 .PHONY : xbee_generate_messages_nodejs/fast
+
+# Convenience name for target.
+xbee/CMakeFiles/_xbee_generate_messages_check_deps_auto_ctrl.dir/rule:
+	cd /home/michael/quadski_control/build && $(MAKE) -f CMakeFiles/Makefile2 xbee/CMakeFiles/_xbee_generate_messages_check_deps_auto_ctrl.dir/rule
+.PHONY : xbee/CMakeFiles/_xbee_generate_messages_check_deps_auto_ctrl.dir/rule
+
+# Convenience name for target.
+_xbee_generate_messages_check_deps_auto_ctrl: xbee/CMakeFiles/_xbee_generate_messages_check_deps_auto_ctrl.dir/rule
+
+.PHONY : _xbee_generate_messages_check_deps_auto_ctrl
+
+# fast build rule for target.
+_xbee_generate_messages_check_deps_auto_ctrl/fast:
+	cd /home/michael/quadski_control/build && $(MAKE) -f xbee/CMakeFiles/_xbee_generate_messages_check_deps_auto_ctrl.dir/build.make xbee/CMakeFiles/_xbee_generate_messages_check_deps_auto_ctrl.dir/build
+.PHONY : _xbee_generate_messages_check_deps_auto_ctrl/fast
 
 # Convenience name for target.
 xbee/CMakeFiles/xbee_geneus.dir/rule:
@@ -303,6 +318,21 @@ xbee_generate_messages/fast:
 .PHONY : xbee_generate_messages/fast
 
 # Convenience name for target.
+xbee/CMakeFiles/_xbee_generate_messages_check_deps_mqs_ctrl.dir/rule:
+	cd /home/michael/quadski_control/build && $(MAKE) -f CMakeFiles/Makefile2 xbee/CMakeFiles/_xbee_generate_messages_check_deps_mqs_ctrl.dir/rule
+.PHONY : xbee/CMakeFiles/_xbee_generate_messages_check_deps_mqs_ctrl.dir/rule
+
+# Convenience name for target.
+_xbee_generate_messages_check_deps_mqs_ctrl: xbee/CMakeFiles/_xbee_generate_messages_check_deps_mqs_ctrl.dir/rule
+
+.PHONY : _xbee_generate_messages_check_deps_mqs_ctrl
+
+# fast build rule for target.
+_xbee_generate_messages_check_deps_mqs_ctrl/fast:
+	cd /home/michael/quadski_control/build && $(MAKE) -f xbee/CMakeFiles/_xbee_generate_messages_check_deps_mqs_ctrl.dir/build.make xbee/CMakeFiles/_xbee_generate_messages_check_deps_mqs_ctrl.dir/build
+.PHONY : _xbee_generate_messages_check_deps_mqs_ctrl/fast
+
+# Convenience name for target.
 xbee/CMakeFiles/xbee_genlisp.dir/rule:
 	cd /home/michael/quadski_control/build && $(MAKE) -f CMakeFiles/Makefile2 xbee/CMakeFiles/xbee_genlisp.dir/rule
 .PHONY : xbee/CMakeFiles/xbee_genlisp.dir/rule
@@ -347,6 +377,48 @@ xbee_genpy/fast:
 	cd /home/michael/quadski_control/build && $(MAKE) -f xbee/CMakeFiles/xbee_genpy.dir/build.make xbee/CMakeFiles/xbee_genpy.dir/build
 .PHONY : xbee_genpy/fast
 
+# Convenience name for target.
+xbee/CMakeFiles/mqs_handshake.dir/rule:
+	cd /home/michael/quadski_control/build && $(MAKE) -f CMakeFiles/Makefile2 xbee/CMakeFiles/mqs_handshake.dir/rule
+.PHONY : xbee/CMakeFiles/mqs_handshake.dir/rule
+
+# Convenience name for target.
+mqs_handshake: xbee/CMakeFiles/mqs_handshake.dir/rule
+
+.PHONY : mqs_handshake
+
+# fast build rule for target.
+mqs_handshake/fast:
+	cd /home/michael/quadski_control/build && $(MAKE) -f xbee/CMakeFiles/mqs_handshake.dir/build.make xbee/CMakeFiles/mqs_handshake.dir/build
+.PHONY : mqs_handshake/fast
+
+src/mqs_handshake.o: src/mqs_handshake.cpp.o
+
+.PHONY : src/mqs_handshake.o
+
+# target to build an object file
+src/mqs_handshake.cpp.o:
+	cd /home/michael/quadski_control/build && $(MAKE) -f xbee/CMakeFiles/mqs_handshake.dir/build.make xbee/CMakeFiles/mqs_handshake.dir/src/mqs_handshake.cpp.o
+.PHONY : src/mqs_handshake.cpp.o
+
+src/mqs_handshake.i: src/mqs_handshake.cpp.i
+
+.PHONY : src/mqs_handshake.i
+
+# target to preprocess a source file
+src/mqs_handshake.cpp.i:
+	cd /home/michael/quadski_control/build && $(MAKE) -f xbee/CMakeFiles/mqs_handshake.dir/build.make xbee/CMakeFiles/mqs_handshake.dir/src/mqs_handshake.cpp.i
+.PHONY : src/mqs_handshake.cpp.i
+
+src/mqs_handshake.s: src/mqs_handshake.cpp.s
+
+.PHONY : src/mqs_handshake.s
+
+# target to generate assembly for a file
+src/mqs_handshake.cpp.s:
+	cd /home/michael/quadski_control/build && $(MAKE) -f xbee/CMakeFiles/mqs_handshake.dir/build.make xbee/CMakeFiles/mqs_handshake.dir/src/mqs_handshake.cpp.s
+.PHONY : src/mqs_handshake.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -355,23 +427,29 @@ help:
 	@echo "... depend"
 	@echo "... install/local"
 	@echo "... install"
+	@echo "... list_install_components"
+	@echo "... rebuild_cache"
+	@echo "... edit_cache"
 	@echo "... xbee_gencpp"
 	@echo "... xbee_generate_messages_cpp"
 	@echo "... xbee_generate_messages_nodejs"
+	@echo "... _xbee_generate_messages_check_deps_auto_ctrl"
 	@echo "... xbee_geneus"
 	@echo "... xbee_generate_messages_eus"
-	@echo "... edit_cache"
 	@echo "... install/strip"
 	@echo "... xbee_generate_messages_lisp"
 	@echo "... xbee_generate_messages_py"
 	@echo "... _xbee_generate_messages_check_deps_cmd_ctrl"
 	@echo "... xbee_generate_messages"
+	@echo "... _xbee_generate_messages_check_deps_mqs_ctrl"
 	@echo "... xbee_genlisp"
 	@echo "... xbee_gennodejs"
 	@echo "... xbee_genpy"
+	@echo "... mqs_handshake"
 	@echo "... test"
-	@echo "... rebuild_cache"
-	@echo "... list_install_components"
+	@echo "... src/mqs_handshake.o"
+	@echo "... src/mqs_handshake.i"
+	@echo "... src/mqs_handshake.s"
 .PHONY : help
 
 

@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/xbee_generate_messages_cpp"
+  "/home/michael/quadski_control/devel/include/xbee/mqs_ctrl.h"
   "/home/michael/quadski_control/devel/include/xbee/cmd_ctrl.h"
+  "/home/michael/quadski_control/devel/include/xbee/auto_ctrl.h"
 )
 
 # Per-language clean rules from dependency scanning.

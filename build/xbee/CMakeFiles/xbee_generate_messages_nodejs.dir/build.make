@@ -53,16 +53,30 @@ CMAKE_BINARY_DIR = /home/michael/quadski_control/build
 # Include the progress variables for this target.
 include xbee/CMakeFiles/xbee_generate_messages_nodejs.dir/progress.make
 
+xbee/CMakeFiles/xbee_generate_messages_nodejs: /home/michael/quadski_control/devel/share/gennodejs/ros/xbee/msg/mqs_ctrl.js
 xbee/CMakeFiles/xbee_generate_messages_nodejs: /home/michael/quadski_control/devel/share/gennodejs/ros/xbee/msg/cmd_ctrl.js
+xbee/CMakeFiles/xbee_generate_messages_nodejs: /home/michael/quadski_control/devel/share/gennodejs/ros/xbee/msg/auto_ctrl.js
 
+
+/home/michael/quadski_control/devel/share/gennodejs/ros/xbee/msg/mqs_ctrl.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
+/home/michael/quadski_control/devel/share/gennodejs/ros/xbee/msg/mqs_ctrl.js: /home/michael/quadski_control/src/xbee/msg/mqs_ctrl.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/michael/quadski_control/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Javascript code from xbee/mqs_ctrl.msg"
+	cd /home/michael/quadski_control/build/xbee && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/michael/quadski_control/src/xbee/msg/mqs_ctrl.msg -Ixbee:/home/michael/quadski_control/src/xbee/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p xbee -o /home/michael/quadski_control/devel/share/gennodejs/ros/xbee/msg
 
 /home/michael/quadski_control/devel/share/gennodejs/ros/xbee/msg/cmd_ctrl.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
 /home/michael/quadski_control/devel/share/gennodejs/ros/xbee/msg/cmd_ctrl.js: /home/michael/quadski_control/src/xbee/msg/cmd_ctrl.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/michael/quadski_control/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Javascript code from xbee/cmd_ctrl.msg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/michael/quadski_control/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Javascript code from xbee/cmd_ctrl.msg"
 	cd /home/michael/quadski_control/build/xbee && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/michael/quadski_control/src/xbee/msg/cmd_ctrl.msg -Ixbee:/home/michael/quadski_control/src/xbee/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p xbee -o /home/michael/quadski_control/devel/share/gennodejs/ros/xbee/msg
 
+/home/michael/quadski_control/devel/share/gennodejs/ros/xbee/msg/auto_ctrl.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
+/home/michael/quadski_control/devel/share/gennodejs/ros/xbee/msg/auto_ctrl.js: /home/michael/quadski_control/src/xbee/msg/auto_ctrl.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/michael/quadski_control/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Javascript code from xbee/auto_ctrl.msg"
+	cd /home/michael/quadski_control/build/xbee && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/michael/quadski_control/src/xbee/msg/auto_ctrl.msg -Ixbee:/home/michael/quadski_control/src/xbee/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p xbee -o /home/michael/quadski_control/devel/share/gennodejs/ros/xbee/msg
+
 xbee_generate_messages_nodejs: xbee/CMakeFiles/xbee_generate_messages_nodejs
+xbee_generate_messages_nodejs: /home/michael/quadski_control/devel/share/gennodejs/ros/xbee/msg/mqs_ctrl.js
 xbee_generate_messages_nodejs: /home/michael/quadski_control/devel/share/gennodejs/ros/xbee/msg/cmd_ctrl.js
+xbee_generate_messages_nodejs: /home/michael/quadski_control/devel/share/gennodejs/ros/xbee/msg/auto_ctrl.js
 xbee_generate_messages_nodejs: xbee/CMakeFiles/xbee_generate_messages_nodejs.dir/build.make
 
 .PHONY : xbee_generate_messages_nodejs

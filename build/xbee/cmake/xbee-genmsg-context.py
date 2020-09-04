@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
-messages_str = "/home/michael/quadski_control/src/xbee/msg/cmd_ctrl.msg"
+messages_str = "/home/michael/quadski_control/src/xbee/msg/cmd_ctrl.msg;/home/michael/quadski_control/src/xbee/msg/auto_ctrl.msg;/home/michael/quadski_control/src/xbee/msg/mqs_ctrl.msg"
 services_str = ""
 pkg_name = "xbee"
 dependencies_str = "std_msgs"

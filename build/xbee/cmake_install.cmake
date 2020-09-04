@@ -38,7 +38,11 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/xbee/msg" TYPE FILE FILES "/home/michael/quadski_control/src/xbee/msg/cmd_ctrl.msg")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/xbee/msg" TYPE FILE FILES
+    "/home/michael/quadski_control/src/xbee/msg/cmd_ctrl.msg"
+    "/home/michael/quadski_control/src/xbee/msg/auto_ctrl.msg"
+    "/home/michael/quadski_control/src/xbee/msg/mqs_ctrl.msg"
+    )
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -94,5 +98,9 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/xbee" TYPE PROGRAM FILES "/home/michael/quadski_control/build/xbee/catkin_generated/installspace/XBee.py")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/xbee" TYPE PROGRAM FILES "/home/michael/quadski_control/build/xbee/catkin_generated/installspace/mqs_autoRelease.py")
 endif()
 

@@ -53,22 +53,38 @@ CMAKE_BINARY_DIR = /home/michael/quadski_control/build
 # Include the progress variables for this target.
 include xbee/CMakeFiles/xbee_generate_messages_py.dir/progress.make
 
+xbee/CMakeFiles/xbee_generate_messages_py: /home/michael/quadski_control/devel/lib/python2.7/dist-packages/xbee/msg/_mqs_ctrl.py
 xbee/CMakeFiles/xbee_generate_messages_py: /home/michael/quadski_control/devel/lib/python2.7/dist-packages/xbee/msg/_cmd_ctrl.py
+xbee/CMakeFiles/xbee_generate_messages_py: /home/michael/quadski_control/devel/lib/python2.7/dist-packages/xbee/msg/_auto_ctrl.py
 xbee/CMakeFiles/xbee_generate_messages_py: /home/michael/quadski_control/devel/lib/python2.7/dist-packages/xbee/msg/__init__.py
 
 
+/home/michael/quadski_control/devel/lib/python2.7/dist-packages/xbee/msg/_mqs_ctrl.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
+/home/michael/quadski_control/devel/lib/python2.7/dist-packages/xbee/msg/_mqs_ctrl.py: /home/michael/quadski_control/src/xbee/msg/mqs_ctrl.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/michael/quadski_control/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python from MSG xbee/mqs_ctrl"
+	cd /home/michael/quadski_control/build/xbee && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/michael/quadski_control/src/xbee/msg/mqs_ctrl.msg -Ixbee:/home/michael/quadski_control/src/xbee/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p xbee -o /home/michael/quadski_control/devel/lib/python2.7/dist-packages/xbee/msg
+
 /home/michael/quadski_control/devel/lib/python2.7/dist-packages/xbee/msg/_cmd_ctrl.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
 /home/michael/quadski_control/devel/lib/python2.7/dist-packages/xbee/msg/_cmd_ctrl.py: /home/michael/quadski_control/src/xbee/msg/cmd_ctrl.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/michael/quadski_control/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python from MSG xbee/cmd_ctrl"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/michael/quadski_control/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python from MSG xbee/cmd_ctrl"
 	cd /home/michael/quadski_control/build/xbee && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/michael/quadski_control/src/xbee/msg/cmd_ctrl.msg -Ixbee:/home/michael/quadski_control/src/xbee/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p xbee -o /home/michael/quadski_control/devel/lib/python2.7/dist-packages/xbee/msg
 
+/home/michael/quadski_control/devel/lib/python2.7/dist-packages/xbee/msg/_auto_ctrl.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
+/home/michael/quadski_control/devel/lib/python2.7/dist-packages/xbee/msg/_auto_ctrl.py: /home/michael/quadski_control/src/xbee/msg/auto_ctrl.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/michael/quadski_control/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Python from MSG xbee/auto_ctrl"
+	cd /home/michael/quadski_control/build/xbee && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/michael/quadski_control/src/xbee/msg/auto_ctrl.msg -Ixbee:/home/michael/quadski_control/src/xbee/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p xbee -o /home/michael/quadski_control/devel/lib/python2.7/dist-packages/xbee/msg
+
 /home/michael/quadski_control/devel/lib/python2.7/dist-packages/xbee/msg/__init__.py: /opt/ros/melodic/lib/genpy/genmsg_py.py
+/home/michael/quadski_control/devel/lib/python2.7/dist-packages/xbee/msg/__init__.py: /home/michael/quadski_control/devel/lib/python2.7/dist-packages/xbee/msg/_mqs_ctrl.py
 /home/michael/quadski_control/devel/lib/python2.7/dist-packages/xbee/msg/__init__.py: /home/michael/quadski_control/devel/lib/python2.7/dist-packages/xbee/msg/_cmd_ctrl.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/michael/quadski_control/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python msg __init__.py for xbee"
+/home/michael/quadski_control/devel/lib/python2.7/dist-packages/xbee/msg/__init__.py: /home/michael/quadski_control/devel/lib/python2.7/dist-packages/xbee/msg/_auto_ctrl.py
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/michael/quadski_control/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Python msg __init__.py for xbee"
 	cd /home/michael/quadski_control/build/xbee && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/michael/quadski_control/devel/lib/python2.7/dist-packages/xbee/msg --initpy
 
 xbee_generate_messages_py: xbee/CMakeFiles/xbee_generate_messages_py
+xbee_generate_messages_py: /home/michael/quadski_control/devel/lib/python2.7/dist-packages/xbee/msg/_mqs_ctrl.py
 xbee_generate_messages_py: /home/michael/quadski_control/devel/lib/python2.7/dist-packages/xbee/msg/_cmd_ctrl.py
+xbee_generate_messages_py: /home/michael/quadski_control/devel/lib/python2.7/dist-packages/xbee/msg/_auto_ctrl.py
 xbee_generate_messages_py: /home/michael/quadski_control/devel/lib/python2.7/dist-packages/xbee/msg/__init__.py
 xbee_generate_messages_py: xbee/CMakeFiles/xbee_generate_messages_py.dir/build.make
 
