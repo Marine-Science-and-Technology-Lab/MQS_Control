@@ -1,0 +1,8 @@
+prefix=/home/lab/mqs/devel
+
+Name: simulink
+Description: Description of simulink
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

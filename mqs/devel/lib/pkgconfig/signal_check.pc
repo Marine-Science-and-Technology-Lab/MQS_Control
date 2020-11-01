@@ -1,0 +1,8 @@
+prefix=/home/lab/mqs/devel
+
+Name: signal_check
+Description: Description of signal_check
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

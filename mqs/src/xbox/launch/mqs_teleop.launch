@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<launch>
+
+	<!-- joy node -->
+	<node respawn="true" pkg="joy" type="joy_node" name="mqs_joy">
+	<param name="dev" type="string" value="/dev/input/js0" />
+	<param name="deadzone" value="0.1" />
+	</node>
+
+	<!-- MQS Teleop Node-->
+	<node pkg="xbox" type="mqs_teleop" name="teleop"/>
+	<!-- Axes parameters-->
+	<param name="steer_marine" value="0" type="int" />
+	<param name="reverse" value="2" type="int"/>
+	<param name="steer_land" value="3" type="int" />
+	<param name="throttle" value="4" type="int" /> <!--throttle on RS forward-->
+	<param name="forward" value="5" type="int" />
+
+	<param name="scale_steer_marine" value="127" type="int" />
+	<param name="scale_reverse" value="64" type="int" />
+	<param name="scale_steer_land" value="127" type="int" />
+	<param name="scale_throttle" value="127" type="int" /> <!-- use this to modify max throttle; 10%=25 20%=50 25%=64 30%=77 40%=102(default) 50%=128 60%=153 70%=179 75%=191 80%=204 90%=230 100%=255-->
+	<param name="scale_forward" value="-64" type="int" />
+	
+	<param name="shift_steer_marine" value="127" type="int"/>
+	<param name="shift_reverse" value="64" type="int"/>
+	<param name="shift_steer_land" value="127" type="int"/>
+	<param name="shift_throttle" value="0" type="int"/>
+	<param name="shift_forward" value="191" type="int"/>
+
+	<!-- Xbee Node -->
+	<node pkg="xbee" type="mqs_xbee.py" name="mqs_xbee" />
+
+	<!-- auto Node -->
+	<node pkg="xbee" type="mqs_autoRelease.py" name="mqs_auto_release" />
+	<param name="auto_land_drive" value="0" type="int"/> <!-- auto land drive speed, defualt set to 160/crawl-->
+	<param name="auto_marine_drive" value="0" type="int"/> <!-- auto marine drive, defautl set to 26 (<10%)-->
+	<param name="MET" value="10" type="int" /> <!--time duration of the mission elapsed time-->
+	<param name="auto_land_drive_time" value="4" type="double"/> <!--time when land drive should turn off-->
+	<param name="auto_wheels_up_time" value="2" type="double" /> <!--time when wheel retraction is activated-->
+	<param name="auto_land_steer" value="127" type="int" /> <!--auto land steering command, defualt set to center-->
+	<param name="auto_land_steer_time" value="0" type="double" /> <!-- auto land steer time, defualt set to 0 (no auto steering)-->
+	<param name="auto_marine_steer" value="127" type="int" /> <!-- auto marine steering command, defualt set to center-->
+	<param name="auto_marine_steer_time" value="0" type="double" /> <!--auto marine steer time, default set to 0 (no auto steering)-->
+
+	<!-- handshake Node -->
+	<node pkg="xbee" type="mqs_handshake" name="handshake" />
+
+	<!-- Qualisys Node -->
+	<node pkg="mocap_qualisys" type="mocap_qualisys_node" name="qualisys" output="screen">
+		<param name="server_address" value="172.17.142.148"/> <!-- IPV4 Addr of QTM computer -->
+		<param name="server_base_port" value="22222"/> <!-- Port value from real time output in qualisys -->
+		<param name="frame_rate" value="0"/> <!-- use defualt frame rate/match to QTM -->
+		<param name="max_accel" value="10.0"/>
+		<param name="publish_tf" value="true"/>
+		<param name="publish_pos" value="true"/>
+		<param name="fixed_frame_id" value="mocap"/>
+
+	<!-- UDP port can be set to -1 to request TCP stream, setting 0 requests a random port, any other positive value requests that specific port -->
+		<param name="udp_port" value="-1"/>
+		<param name="qtm_protocol_version" value="18"/>
+		<rosparam param="model_list">[]</rosparam>
+		<rosparam param="marker_list">[]</rosparam>
+	</node>
+
+</launch>
