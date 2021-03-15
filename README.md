@@ -7,11 +7,11 @@ Masters in mechanical engineering from the University of Iowa.
 # Arduino
 The Arduino code is listed under the MQS_Robot_Control folder.
 It contains the base code as well as needed header files for interpriting and queuing xbee messages. The base code has two control methods, ROS (default) and RC transmitter.
-The arduino code only reads data from either the Xbee hardware series (UART/ RX 0) and executes servo commands. No functionality to send back messages is currently implimented,
+The arduino code only reads data from either the Xbee hardware serial (UART/ RX 0) or from the RC hardware serial (RX5)  and executes servo commands. No functionality to send back messages is currently implimented,
 however, the location where it could be done is commented in the code.
 
 # ROS
-The ROS code is listed in the mqs folder (built, devel, and src are holdovers that did not get properly deleted in the last push, they will be in future updates).
+The ROS code is listed in the mqs folder.
 Download the entire folder in a catkin_workspace and catkin_make to set up the ROS system. Current working packages are: mocap_base, mocap_qualysis, xbee, and xbox. All other
 packages are not fully built. See description of each package below
 
@@ -37,9 +37,9 @@ to control the robot. It makes this decision based on which node is publishing f
 is running. If the MET is not running handshake activateds joystick override passing all control to the xbox controller. If the MET is running, certain controls will be available
 to the feed-forward scheme and others available to the xbox controller, these are mainly determined by time parameters set on the main parameter server (See mqs_teleop.launch in
 the xbox node for more details). In the scripts folder is where the python codes are located, mqs_xbee is only used to send the control signals as byte objects over 802 rf to 
-a reciever on the robot. mqs_autoRelease is the feed-forward control program that handels recieving a trigger message from another computer (for our purpose this was a comuter 
-monitoriing wave phase in labVIEW) the trigger message is simply a 01 in hex with all the appropriate xbee header information. Once the start bit is recieved the mission elapsed
-time clock starts (MET) the time is based on the parameter set on the parameter server (see xbox mqs_teleop.launch). During the MET several different driving and control
+a reciever on the robot. mqs_autoRelease is the feed-forward control program that handels recieving a trigger message from another computer (for our purpose this was a computer 
+monitoriing wave phase in labVIEW) the trigger message is simply a 1 in hex (0x01) with all the appropriate xbee header information. Once the start bit is recieved the mission elapsed
+time clock (MET) starts the time is based on the parameter set on the parameter server (see xbox mqs_teleop.launch). During the MET several different driving and control
 operations can be performed. By default it is set for outbound cases at a crawl speed for 4 seconds, a marine throttle of 10%, and wheels up after 2 seconds. All feed-forward parameters can be set on the
 parameter server before or during operation. For inbound cases the signs on the land drive section (i=1) must be swapped (see comments in code) this will change the drive time
 to a delta meaning they will start driving after a specified time. For inbound the wheels up time also should be changed to 0 and should be set on the joystick before launching
