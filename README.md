@@ -88,3 +88,8 @@ the controller, it must be done each time the nodes are started! You can turn on
 
 If the mqs_autoRelease receives a nonetype on the xbee it will kill the node, this is an issue being worked on, but in the meantime the easiest fix is to reset and reboot 
 
+![MQS_XBOX_Controller_layout](https://github.com/Swaffles/MQS_Control/assets/58667766/d70a6a8b-cc62-4bcd-b81f-9987fdf9821c)
+![mqs_rc_control](https://github.com/Swaffles/MQS_Control/assets/58667766/d8164099-71f5-485f-9658-de0143ebf149)
+
+
+
