@@ -30,24 +30,25 @@ is to provide position and pose data to SIMULINK for the purpose of developing a
 
 # XBEE
 This is the main node for operating the xbee radio transmitter, the feed-forward control program, as well as handling message authority. In the messages folder there are three 
-custom message types: auto_ctrl is the auto control message type that either the feed-forward control program or simulink can publish to. cmd_ctrl is the modified joystick 
+custom message types: auto_ctrl is the auto control message type that either the feed-forward control programs or simulink can publish to. cmd_ctrl is the modified joystick 
 control message where xbox control inputs are mapped to specific robot functions. mqs_ctrl is the final published message that is sent over the xbee after mqs_handshake decides
-which control type has authority, joystick or feed-forward. mqs_handshake is located int he xbee src folder. As stated before mqs_handshake decides which message has priority
+which control type has authority, joystick or feed-forward. mqs_handshake is located in the xbee src folder. As stated before mqs_handshake decides which message has priority
 to control the robot. It makes this decision based on which node is publishing fresh data and wheter the mission elapsed time (MET) message from the feed-forward control scheme
 is running. If the MET is not running handshake activateds joystick override passing all control to the xbox controller. If the MET is running, certain controls will be available
 to the feed-forward scheme and others available to the xbox controller, these are mainly determined by time parameters set on the main parameter server (See mqs_teleop.launch in
-the xbox node for more details). In the scripts folder is where the python codes are located, mqs_xbee is only used to send the control signals as byte objects over 802 rf to 
-a reciever on the robot. mqs_autoRelease is the feed-forward control program that handels recieving a trigger message from another computer (for our purpose this was a computer 
-monitoriing wave phase in labVIEW) the trigger message is simply a 1 in hex (0x01) with all the appropriate xbee header information. Once the start bit is recieved the mission elapsed
-time clock (MET) starts the time is based on the parameter set on the parameter server (see xbox mqs_teleop.launch). During the MET several different driving and control
-operations can be performed. By default it is set for outbound cases at a crawl speed for 4 seconds, a marine throttle of 10%, and wheels up after 2 seconds. All feed-forward parameters can be set on the
-parameter server before or during operation. For inbound cases the signs on the land drive section (i=1) must be swapped (see comments in code) this will change the drive time
-to a delta meaning they will start driving after a specified time. For inbound the wheels up time also should be changed to 0 and should be set on the joystick before launching
-to prevent the wheels from locking in the up position. It should be noted that for ease of operation once the MET has finished all control will be given back to the driver, however,
-the auto throttle will remain on until the pilot intervenes, this acts as a sort of cruise control that makes drivning the model in the water a single stick operation. To remove 
-this feature simply add:
- && mqs_met < MET_END 
- to the if statment for i=2 in the mqs_handshake autoCallback function
+the xbox node for more details). Exceptions to the athority include control timeouts of 5 minutes and 1 second on the joystick and feed-forward signals repsectively. Handshake now
+includes a direct override on the throttle - if the pilot changes the throttle position during feed-forward operation the feed-forward control is aborted, the controls are centered
+(zeroed) and control of the vehicle is fully returned to the pilot. In the scripts folder is where the python codes are located, mqs_xbee is only used to send the control signals as 
+byte objects over 802 rf to a reciever on the robot. mqs_autoRelease is the feed-forward control program that handels recieving a trigger message from another computer (for our purpose 
+this was a computer monitoriing wave phase in labVIEW) the trigger message is simply a 1 in hex (0x01) with all the appropriate xbee header information. Once the start bit is recieved 
+the mission elapsed time clock (MET) starts the time is based on the parameter set on the parameter server (see xbox mqs_teleop.launch). During the MET several different driving and 
+control operations can be performed. By default it is set for outbound cases at a crawl speed for 4 seconds, a marine throttle of 10%, and wheels up after 2 seconds. All feed-forward
+parameters can be set on the parameter server before or during operation. For inbound cases the signs on the land drive section (i=1) must be swapped (see comments in code) this will 
+change the drive time to a delta meaning they will start driving after a specified time. For inbound the wheels up time also should be changed to 0 and should be set on the joystick 
+before launching to prevent the wheels from locking in the up position. mqs_maneuver.py is a pilot operated feed-forward control script that enables the pilot to use the same parameters 
+for the autoRelease.py script, but can be activated by the pilot themselves. The possible maneuvers are, straight ahead, circle/donut, and zig-zag. The parameters that must be changed 
+are: 
+
 
 # XBOX
 This is the meat and potatos of the MQS ROS packages. This node handles the joy message and converts to MQS controls on the xbox controller. This node also houses the main launch
