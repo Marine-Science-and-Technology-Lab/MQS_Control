@@ -47,7 +47,9 @@ parameters can be set on the parameter server before or during operation. For in
 change the drive time to a delta meaning they will start driving after a specified time. For inbound the wheels up time also should be changed to 0 and should be set on the joystick 
 before launching to prevent the wheels from locking in the up position. mqs_maneuver.py is a pilot operated feed-forward control script that enables the pilot to use the same parameters 
 for the autoRelease.py script, but can be activated by the pilot themselves. The possible maneuvers are, straight ahead, circle/donut, and zig-zag. The parameters that must be changed 
-are: 
+are: auto_marine_steer_time must be set equal to or greater than MET, zigzag must also be set, 0 = off, 1 = zigzag, 2 = circle (you can set the auto_marine_steer to 0 if you want to go 
+straight), zigzag_rate only needs to be set if zigzag is set to 1, this controls the rate of the zigzag change in seconds (default 2 seconds each side). To activate the mqs_manveuver option
+press the UP button on the Xbox D-pad.
 
 
 # XBOX
