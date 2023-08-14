@@ -1,2 +1,2 @@
-gui_keyboard:mocap_base:mocap_qualisys:signal_check:simulink:xbee:xbox
+gui:mocap_base:mocap_qualisys:signal_check:simulink:xbee:xbox
 -DCATKIN_DEVEL_PREFIX=/home/lab/mqs/devel -DCMAKE_INSTALL_PREFIX=/home/lab/mqs/install -G Unix Makefiles

@@ -1,8 +1,0 @@
-prefix=/home/michael/quadski_control/install
-
-Name: signal_check
-Description: Description of signal_check
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

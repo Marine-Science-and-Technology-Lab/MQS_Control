@@ -1,8 +1,0 @@
-prefix=/home/michael/quadski_control/devel
-
-Name: receive_data
-Description: Description of receive_data
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

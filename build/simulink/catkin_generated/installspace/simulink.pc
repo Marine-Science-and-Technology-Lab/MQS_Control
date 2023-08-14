@@ -1,8 +1,0 @@
-prefix=/home/michael/quadski_control/install
-
-Name: simulink
-Description: Description of simulink
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

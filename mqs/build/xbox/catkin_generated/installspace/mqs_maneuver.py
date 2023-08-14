@@ -1,0 +1,155 @@
+#!/usr/bin/env python2
+import rospy
+from xbox.msg import op
+from time import sleep
+from xbee.msg import auto_ctrl
+from rospy.numpy_msg import numpy_msg
+from std_msgs.msg import Bool
+from std_msgs.msg import Float32
+from collections import deque
+from std_msgs.msg import Duration
+
+"""
+This is a simple user controlled function that will either make the MQS perform circular or zigzag manuevers 
+for a given time (MET) or until turned off by the pilot. Circle or zig zag size may be changed on the parameter server
+
+To run this code set:
+MET to desired value
+auto_marine_steer_time to desired value (can be the same as the MET)
+auto_marine_Steer to desired value
+zigzag set to desired operation
+
+"""
+
+go_mqs = False  # bool trigger
+auto_reset = False  # bool value for reseting auto_count in mqs_handshake
+MET = 0  # mission elapsed time in seconds
+zigzag = rospy.get_param("zigzag") #bool to decide whether the zigzag or circular feature is enabled. True = zigzag, False = circular
+
+# log auto message in the log
+def callback(auto_ctrls):
+    rospy.loginfo("Rx: %s", auto_ctrls)
+    rospy.loginfo(type(auto_ctrls))
+
+# looking for trigger from XBOX controller
+def maneuver_trigger(op):
+    Msg = op.start #start button zero or one
+    global go_mqs
+    global auto_reset
+    if Msg:
+        if Msg == 1:
+            print("Trigger: " + Msg)
+            rospy.loginfo("TriggeWrong trigger recieved from labVIEWr: " + Msg)
+            go_mqs = True
+            go_pub = rospy.Publisher("go_mqs", Bool, queue_size=1)
+            go_pub.publish(go_mqs)
+            auto_reset = False
+        else:
+            print("Trigger not yet active")
+            print("Trigger: " + Msg)
+    else:
+        print("Joystick not running!")
+        print("Trigger recieved: " + Msg)
+        rospy.loginfo("Joystick is not running...trigger: " + Msg)
+
+def maneuver_node_start():
+    global go_mqs
+    global auto_reset
+    while not go_mqs and not rospy.is_shutdown():
+        rospy.loginfo("Waiting for pilot trigger")
+        rospy.Subscriber("op",op,maneuver_trigger) #subscribe to operations msgs
+    while go_mqs and not auto_reset and not rospy.is_shutdown():
+        # publish them controls
+        print("Automatic control Broadcasting...")
+        rospy.loginfo("Automatic control Broadcasting...")
+        mqs_maneuver()
+    rospy.spin()
+
+
+def mqs_maneuver():
+    # automated controls are published here
+    """
+    Automated control switches on once go_mqs is set to TRUE
+    automated control only touches the nozzle direction and duration
+    Automated control will run until MET (mission elapsed time) reaches a predetermined
+    time (more directly a number of cycles)
+    """
+    # auto_ctrls[0]=marine steer
+    print("Automatic Control Enabled...")
+    rospy.loginfo("Automatic Control Enabled...")
+    auto_pub = rospy.Publisher('auto_ctrls', numpy_msg(auto_ctrl), queue_size=1)
+    met_pub = rospy.Publisher('MET',Float32, queue_size=1)
+    go_pub = rospy.Publisher("go_mqs", Bool, queue_size=1)
+    auto_ctrls = auto_ctrl()
+    auto_ctrls_ = []
+    auto_ctrls_.extend(auto_ctrls.auto_ctrls)
+    global MET
+    global auto_reset
+    global go_mqs
+    global zigzag
+    zigzag_rate = rospy.get_param("zigzag_rate")
+    duration = rospy.Duration.from_sec(MET)
+    t=0 #initialize t
+    rate=rospy.Rate(duration.to_sec())
+    while MET < rospy.get_param("MET") and not rospy.is_shutdown():
+        for i in range(len(auto_ctrls_)):
+            if i == 0 and duration<rospy.get_param("auto_marine_steer_time"):
+                if zigzag == 2:
+                    # do circles at specified steering param
+                    auto_ctrls_[i] = rospy.get_param("auto_marine_steer")
+                    if auto_ctrls_[i] < 0 or auto_ctrls_[i] > 255:
+                        auto_ctrls_[i] = 127  # center jet
+                        print("Invalid range for marine steering!")
+                    print("Marine steering set to ", auto_ctrls_[i])
+                elif zigzag == 1:
+                    #do zigzags at specified rate
+                    if t<zigzag_rate:
+                        auto_ctrls_[i]=rospy.get_param("auto_marine_steer")
+                        if auto_ctrls_[i] < 0 or auto_ctrls_[i] > 255:
+                            auto_ctrls_[i] = 127  # center jet
+                            print("Invalid range for marine steering!")
+                        print("Marine steering set to ", auto_ctrls_[i]," for t = ",t)
+                    elif t>=zigzag_rate and t<=2*zigzag_rate:
+                        temp=127-rospy.get_param("auto_marine_steer")
+                        auto_ctrls_[i]=127+temp #to ensure mirroring about the cetner point at 127
+                        if auto_ctrls_[i] < 0 or auto_ctrls_[i] > 255:
+                            auto_ctrls_[i] = 127  # center jet
+                            print("Invalid range for marine steering!")
+                        print("Marine steering set to ", auto_ctrls_[i]," for t = ", t)
+                    else:
+                        t=0 #reset t to start zigzag over
+                else:
+                    reason="Zigzag parameter is set to 0 or was turned off"
+                    rospy.signal_shutdown(reason)
+            elif i == 2:
+                auto_ctrls_[i] = rospy.get_param("auto_marine_drive")  # set marine throttle to the specified auto_marine_drive parameter value
+                if auto_ctrls_[i] <= 0 or auto_ctrls_[i] > 255: #if the value read from the server was not set or is invalid use a default throttle value of 10%
+                    auto_ctrls_[i] = 26
+                    print("Marine drive parameter not set, marine drive set to default 10% throttle")
+                print("Marine Throttle set to:", auto_ctrls_[i])
+            else:
+                auto_ctrls_[i] = 0  # send centered or off signal
+        auto_pub.publish(auto_ctrls_)
+        callback(auto_ctrls_)
+        rate.sleep()
+        MET += 0.01  # 0.01 seconds per cycle since rate is 100Hz
+        t += 0.01 #0.01 increment on zigzag_rate timer t
+        print("MET: ", MET)
+        met_pub.publish(MET)
+    if MET >= rospy.get_param("MET"):
+        print("Automatic Control Has Finished at MET: ", MET)
+        # rospy.loginfo("Automatic Control Has Finished at MET: ",MET)
+        auto_reset = True
+        go_mqs = False  # send a trigger to handshake to reset the automatic count
+        MET = 0  # reset the MET
+        print("MET reset: ", MET)
+        go_pub.publish(go_mqs)
+        maneuver_node_start()  # might be circular
+
+
+
+
+if __name__ == "__main__":
+    rospy.init_node('mqs_maneuver', anonymous=True)
+    while not rospy.is_shutdown():
+        maneuver_node_start()

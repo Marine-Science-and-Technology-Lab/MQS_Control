@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<launch>
+
+	<!-- joy node -->
+	<node respawn="true" pkg="joy" type="joy_node" name="mqs_joy">
+	<param name="dev" type="string" value="/dev/input/js0" />
+	<param name="deadzone" value="0.1" />
+	<param name="default_trig_val" type="bool" value="true" />
+	<param name="dev_ff" type="string" value="/dev/input/event19" />
+	</node>
+
+	<!-- MQS Teleop Node-->
+	<node pkg="xbox" type="mqs_teleop" name="teleop"/>
+	<!-- Axes parameters-->
+	<param name="steer_marine" value="0" type="int" />
+	<param name="reverse" value="2" type="int"/>
+	<param name="steer_land" value="3" type="int" />
+	<param name="throttle" value="4" type="int" /> <!--throttle on RS forward-->
+	<param name="forward" value="5" type="int" />
+
+	<param name="scale_steer_marine" value="127" type="int" />
+	<param name="scale_reverse" value="64" type="int" />
+	<param name="scale_steer_land" value="127" type="int" />
+	<param name="scale_throttle" value="127" type="int" /> <!-- use this to modify max throttle; 10%=25 20%=50 25%=64 30%=77 40%=102(default) 50%=128 60%=153 70%=179 75%=191 80%=204 90%=230 100%=255-->
+	<param name="scale_forward" value="-64" type="int" />-
+	
+	<param name="shift_steer_marine" value="127" type="int"/>
+	<param name="shift_reverse" value="64" type="int"/>
+	<param name="shift_steer_land" value="127" type="int"/>
+	<param name="shift_throttle" value="0" type="int"/>
+	<param name="shift_forward" value="191" type="int"/>
+
+	<!-- Xbee Node -->
+	<node pkg="xbee" type="mqs_xbee.py" name="mqs_xbee" />
+
+	<!-- auto Node -->
+	<node pkg="xbee" type="mqs_autoRelease.py" name="mqs_auto_release" />
+	<param name="auto_land_drive" value="0" type="int"/> <!-- auto land drive speed, defualt set to 160/crawl-->
+	<param name="auto_marine_drive" value="26" type="int"/> <!-- auto marine drive, defuatl set to 26 (<10%)-->
+	<param name="MET" value="10" type="int" /> <!--time duration of the mission elapsed time-->
+	<param name="auto_land_drive_time" value="4" type="double"/> <!--time when land drive should turn off-->
+	<param name="auto_wheels_up_time" value="2" type="double" /> <!--time when wheel retraction is activated-->
+	<param name="auto_land_steer" value="127" type="int" /> <!--auto land steering command, defualt set to center-->
+	<param name="auto_land_steer_time" value="0" type="double" /> <!-- auto land steer time, defualt set to 0 (no auto steering)-->
+	<param name="auto_marine_steer" value="1" type="int" /> <!-- auto marine steering command, defualt set to center-->
+	<param name="auto_marine_steer_time" value="10" type="double" /> <!--auto marine steer time, default set to 0 (no auto steering)-->
+
+	<!-- maneuver Node -->
+	<node pkg="xbee" type="mqs_maneuver.py" name="mqs_maneuver"/>
+	<param name="zigzag_rate" value="2" type="double"/> <!-- maneuver node steering rate for doing zigzags-->
+	<param name="zigzag" value="1" type="int"/> <!--set zigzag param, 0=off, 1=zigzag, 2=circle-->
+
+	<!-- handshake Node -->
+	<node pkg="xbee" type="mqs_handshake" name="handshake" />
+
+</launch>

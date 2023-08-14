@@ -30,7 +30,8 @@ struct op_
     , wrt(0)
     , cp(0)
     , rvm(0)
-    , abort(0)  {
+    , abort(0)
+    , start(0)  {
     }
   op_(const ContainerAllocator& _alloc)
     : esc(0)
@@ -39,7 +40,8 @@ struct op_
     , wrt(0)
     , cp(0)
     , rvm(0)
-    , abort(0)  {
+    , abort(0)
+    , start(0)  {
   (void)_alloc;
     }
 
@@ -65,6 +67,9 @@ struct op_
 
    typedef uint8_t _abort_type;
   _abort_type abort;
+
+   typedef uint8_t _start_type;
+  _start_type start;
 
 
 
@@ -101,7 +106,8 @@ bool operator==(const ::xbox::op_<ContainerAllocator1> & lhs, const ::xbox::op_<
     lhs.wrt == rhs.wrt &&
     lhs.cp == rhs.cp &&
     lhs.rvm == rhs.rvm &&
-    lhs.abort == rhs.abort;
+    lhs.abort == rhs.abort &&
+    lhs.start == rhs.start;
 }
 
 template<typename ContainerAllocator1, typename ContainerAllocator2>
@@ -158,12 +164,12 @@ struct MD5Sum< ::xbox::op_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "ce1000fdad5bdc47b754e81eac323f68";
+    return "a88ed851050f435447fefa00180357ec";
   }
 
   static const char* value(const ::xbox::op_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0xce1000fdad5bdc47ULL;
-  static const uint64_t static_value2 = 0xb754e81eac323f68ULL;
+  static const uint64_t static_value1 = 0xa88ed851050f4354ULL;
+  static const uint64_t static_value2 = 0x47fefa00180357ecULL;
 };
 
 template<class ContainerAllocator>
@@ -191,6 +197,7 @@ struct Definition< ::xbox::op_<ContainerAllocator> >
 "uint8 cp   #turn on/off the cooling pumps for the ESC's\n"
 "uint8 rvm  #hold to engage reverse mode for marine\n"
 "uint8 abort #abort joystick operation. Change over to transmitter on arduino\n"
+"uint8 start #start manuever switch to begin a keyed up manuever\n"
 ;
   }
 
@@ -216,6 +223,7 @@ namespace serialization
       stream.next(m.cp);
       stream.next(m.rvm);
       stream.next(m.abort);
+      stream.next(m.start);
     }
 
     ROS_DECLARE_ALLINONE_SERIALIZER
@@ -248,6 +256,8 @@ struct Printer< ::xbox::op_<ContainerAllocator> >
     Printer<uint8_t>::stream(s, indent + "  ", v.rvm);
     s << indent << "abort: ";
     Printer<uint8_t>::stream(s, indent + "  ", v.abort);
+    s << indent << "start: ";
+    Printer<uint8_t>::stream(s, indent + "  ", v.start);
   }
 };
 

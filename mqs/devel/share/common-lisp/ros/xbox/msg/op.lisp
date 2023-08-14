@@ -41,6 +41,11 @@
     :reader abort
     :initarg :abort
     :type cl:fixnum
+    :initform 0)
+   (start
+    :reader start
+    :initarg :start
+    :type cl:fixnum
     :initform 0))
 )
 
@@ -86,6 +91,11 @@
 (cl:defmethod abort-val ((m <op>))
   (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader xbox-msg:abort-val is deprecated.  Use xbox-msg:abort instead.")
   (abort m))
+
+(cl:ensure-generic-function 'start-val :lambda-list '(m))
+(cl:defmethod start-val ((m <op>))
+  (roslisp-msg-protocol:msg-deprecation-warning "Using old-style slot reader xbox-msg:start-val is deprecated.  Use xbox-msg:start instead.")
+  (start m))
 (cl:defmethod roslisp-msg-protocol:serialize ((msg <op>) ostream)
   "Serializes a message object of type '<op>"
   (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'esc)) ostream)
@@ -95,6 +105,7 @@
   (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'cp)) ostream)
   (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'rvm)) ostream)
   (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'abort)) ostream)
+  (cl:write-byte (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'start)) ostream)
 )
 (cl:defmethod roslisp-msg-protocol:deserialize ((msg <op>) istream)
   "Deserializes a message object of type '<op>"
@@ -105,6 +116,7 @@
     (cl:setf (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'cp)) (cl:read-byte istream))
     (cl:setf (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'rvm)) (cl:read-byte istream))
     (cl:setf (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'abort)) (cl:read-byte istream))
+    (cl:setf (cl:ldb (cl:byte 8 0) (cl:slot-value msg 'start)) (cl:read-byte istream))
   msg
 )
 (cl:defmethod roslisp-msg-protocol:ros-datatype ((msg (cl:eql '<op>)))
@@ -115,18 +127,19 @@
   "xbox/op")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql '<op>)))
   "Returns md5sum for a message object of type '<op>"
-  "ce1000fdad5bdc47b754e81eac323f68")
+  "a88ed851050f435447fefa00180357ec")
 (cl:defmethod roslisp-msg-protocol:md5sum ((type (cl:eql 'op)))
   "Returns md5sum for a message object of type 'op"
-  "ce1000fdad5bdc47b754e81eac323f68")
+  "a88ed851050f435447fefa00180357ec")
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql '<op>)))
   "Returns full string definition for message of type '<op>"
-  (cl:format cl:nil "# Message files for all of the switch commands for the MQS~%~%uint8 esc  #turn on/off the esc's~%uint8 bp   #turn on/off the bilge pump~%uint8 daq  #turn on/off the DAQ~%uint8 wrt  #raise and lower the wheel retraction~%uint8 cp   #turn on/off the cooling pumps for the ESC's~%uint8 rvm  #hold to engage reverse mode for marine~%uint8 abort #abort joystick operation. Change over to transmitter on arduino~%~%~%"))
+  (cl:format cl:nil "# Message files for all of the switch commands for the MQS~%~%uint8 esc  #turn on/off the esc's~%uint8 bp   #turn on/off the bilge pump~%uint8 daq  #turn on/off the DAQ~%uint8 wrt  #raise and lower the wheel retraction~%uint8 cp   #turn on/off the cooling pumps for the ESC's~%uint8 rvm  #hold to engage reverse mode for marine~%uint8 abort #abort joystick operation. Change over to transmitter on arduino~%uint8 start #start manuever switch to begin a keyed up manuever~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:message-definition ((type (cl:eql 'op)))
   "Returns full string definition for message of type 'op"
-  (cl:format cl:nil "# Message files for all of the switch commands for the MQS~%~%uint8 esc  #turn on/off the esc's~%uint8 bp   #turn on/off the bilge pump~%uint8 daq  #turn on/off the DAQ~%uint8 wrt  #raise and lower the wheel retraction~%uint8 cp   #turn on/off the cooling pumps for the ESC's~%uint8 rvm  #hold to engage reverse mode for marine~%uint8 abort #abort joystick operation. Change over to transmitter on arduino~%~%~%"))
+  (cl:format cl:nil "# Message files for all of the switch commands for the MQS~%~%uint8 esc  #turn on/off the esc's~%uint8 bp   #turn on/off the bilge pump~%uint8 daq  #turn on/off the DAQ~%uint8 wrt  #raise and lower the wheel retraction~%uint8 cp   #turn on/off the cooling pumps for the ESC's~%uint8 rvm  #hold to engage reverse mode for marine~%uint8 abort #abort joystick operation. Change over to transmitter on arduino~%uint8 start #start manuever switch to begin a keyed up manuever~%~%~%"))
 (cl:defmethod roslisp-msg-protocol:serialization-length ((msg <op>))
   (cl:+ 0
+     1
      1
      1
      1
@@ -145,4 +158,5 @@
     (cl:cons ':cp (cp msg))
     (cl:cons ':rvm (rvm msg))
     (cl:cons ':abort (abort msg))
+    (cl:cons ':start (start msg))
 ))

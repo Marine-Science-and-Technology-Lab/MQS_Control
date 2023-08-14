@@ -27,7 +27,7 @@ def xbee_send(cmds):
 def mqs_xbee():
     rospy.init_node('mqs_xbee', anonymous=True)
     #subscribe to cmd_ctrl
-    rospy.Subscriber("cmds",numpy_msg(mqs_ctrl),xbee_send)
+    rospy.Subscriber("cmds",numpy_msg(mqs_ctrl),xbee_send) #numpy msg converts from message type to standard int used in python
     #for debugging
     rospy.Subscriber("cmds",numpy_msg(mqs_ctrl),callback)
 

@@ -34,14 +34,19 @@
 	<!-- auto Node -->
 	<node pkg="xbee" type="mqs_autoRelease.py" name="mqs_auto_release" />
 	<param name="auto_land_drive" value="0" type="int"/> <!-- auto land drive speed, defualt set to 160/crawl-->
-	<param name="auto_marine_drive" value="0" type="int"/> <!-- auto marine drive, defautl set to 26 (<10%)-->
+	<param name="auto_marine_drive" value="26" type="int"/> <!-- auto marine drive, defuatl set to 26 (<10%)-->
 	<param name="MET" value="10" type="int" /> <!--time duration of the mission elapsed time-->
 	<param name="auto_land_drive_time" value="4" type="double"/> <!--time when land drive should turn off-->
 	<param name="auto_wheels_up_time" value="2" type="double" /> <!--time when wheel retraction is activated-->
 	<param name="auto_land_steer" value="127" type="int" /> <!--auto land steering command, defualt set to center-->
 	<param name="auto_land_steer_time" value="0" type="double" /> <!-- auto land steer time, defualt set to 0 (no auto steering)-->
 	<param name="auto_marine_steer" value="127" type="int" /> <!-- auto marine steering command, defualt set to center-->
-	<param name="auto_marine_steer_time" value="0" type="double" /> <!--auto marine steer time, default set to 0 (no auto steering)-->
+	<param name="auto_marine_steer_time" value="10" type="double" /> <!--auto marine steer time, default set to 0 (no auto steering)-->
+
+	<!-- maneuver Node -->
+	<node pkg="xbee" type="mqs_maneuver.py" name="mqs_maneuver"/>
+	<param name="zigzag_rate" value="2" type="double"/> <!-- maneuver node steering rate for doing zigzags-->
+	<param name="zigzag" value="2" type="int"/> <!--set zigzag param, 0=off, 1=zigzag, 2=circle-->
 
 	<!-- handshake Node -->
 	<node pkg="xbee" type="mqs_handshake" name="handshake" />

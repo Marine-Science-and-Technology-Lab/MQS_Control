@@ -17,15 +17,10 @@ time delays for different functions
 *************************
 """
 
-go_mqs = False  # bool trigger
-auto_reset = False  # bool value for reseting auto_count in mqs_handshake
-MET = 0  # mission elapsed time in seconds
-
 
 # log auto message in the log
 def callback(auto_ctrls):
     rospy.loginfo("Rx: %s", auto_ctrls)
-    rospy.loginfo(type(auto_ctrls))
 
 
 # looking for trigger from labview Xbee
@@ -68,7 +63,6 @@ def xbee_pub():
         print("Automatic control Broadcasting...")
         rospy.loginfo("Automatic control Broadcasting...")
         mqs_auto_release()
-    rospy.spin()
 
 
 def mqs_auto_release():
@@ -97,7 +91,6 @@ def mqs_auto_release():
     global go_mqs
     rate = rospy.Rate(100)  # publish messages at 100Hz
     while MET < rospy.get_param("MET") and not rospy.is_shutdown():
-        count = 0
         for i in range(len(auto_ctrls_)):
             if i == 0 and MET < rospy.get_param("auto_marine_steer_time"):
                 auto_ctrls_[i]=rospy.get_param("auto_marine_steer")
@@ -142,26 +135,29 @@ def mqs_auto_release():
                 auto_ctrls_[i] = 1 #turn on the cooling pump because I'll probably forget
             else:
                 auto_ctrls_[i] = 0  # send centered or off signal
-            count += 1
         auto_pub.publish(auto_ctrls_)
         callback(auto_ctrls_)
-        rate.sleep()
         MET += 0.01  # 0.01 seconds per cycle since rate is 100Hz
         print("MET: ", MET)
         met_pub.publish(MET)
+        rate.sleep()
     if MET >= rospy.get_param("MET"):
-        print("Automatic Control Has Finished at MET: ", MET)
+        print("Auto-Release Control Has Finished at MET: ", MET)
         # rospy.loginfo("Automatic Control Has Finished at MET: ",MET)
         auto_reset = True
         go_mqs = False  # send a trigger to handshake to reset the automatic count
         MET = 0  # reset the MET
         print("MET reset: ", MET)
         go_pub.publish(go_mqs)
-        xbee_pub()  # might be circular
+        #xbee_pub()
 
 
 if __name__ == "__main__":
     xbee = XBee.XBee("/dev/ttyUSB0")
     rospy.init_node('mqs_autoRelease', anonymous=True)
+    go_mqs = False  # bool trigger
+    auto_reset = False  # bool value for reseting auto_count in mqs_handshake
+    MET = 0  # mission elapsed time in seconds
     while not rospy.is_shutdown():
         xbee_pub()
+        rospy.spin()

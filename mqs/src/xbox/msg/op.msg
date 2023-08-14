@@ -7,3 +7,4 @@ uint8 wrt  #raise and lower the wheel retraction
 uint8 cp   #turn on/off the cooling pumps for the ESC's
 uint8 rvm  #hold to engage reverse mode for marine
 uint8 abort #abort joystick operation. Change over to transmitter on arduino
+uint8 start #start manuever switch to begin a keyed up manuever

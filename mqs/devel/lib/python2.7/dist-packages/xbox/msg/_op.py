@@ -8,7 +8,7 @@ import struct
 
 
 class op(genpy.Message):
-  _md5sum = "ce1000fdad5bdc47b754e81eac323f68"
+  _md5sum = "a88ed851050f435447fefa00180357ec"
   _type = "xbox/op"
   _has_header = False  # flag to mark the presence of a Header object
   _full_text = """# Message files for all of the switch commands for the MQS
@@ -20,9 +20,10 @@ uint8 wrt  #raise and lower the wheel retraction
 uint8 cp   #turn on/off the cooling pumps for the ESC's
 uint8 rvm  #hold to engage reverse mode for marine
 uint8 abort #abort joystick operation. Change over to transmitter on arduino
+uint8 start #start manuever switch to begin a keyed up manuever
 """
-  __slots__ = ['esc','bp','daq','wrt','cp','rvm','abort']
-  _slot_types = ['uint8','uint8','uint8','uint8','uint8','uint8','uint8']
+  __slots__ = ['esc','bp','daq','wrt','cp','rvm','abort','start']
+  _slot_types = ['uint8','uint8','uint8','uint8','uint8','uint8','uint8','uint8']
 
   def __init__(self, *args, **kwds):
     """
@@ -32,7 +33,7 @@ uint8 abort #abort joystick operation. Change over to transmitter on arduino
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       esc,bp,daq,wrt,cp,rvm,abort
+       esc,bp,daq,wrt,cp,rvm,abort,start
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -55,6 +56,8 @@ uint8 abort #abort joystick operation. Change over to transmitter on arduino
         self.rvm = 0
       if self.abort is None:
         self.abort = 0
+      if self.start is None:
+        self.start = 0
     else:
       self.esc = 0
       self.bp = 0
@@ -63,6 +66,7 @@ uint8 abort #abort joystick operation. Change over to transmitter on arduino
       self.cp = 0
       self.rvm = 0
       self.abort = 0
+      self.start = 0
 
   def _get_types(self):
     """
@@ -77,7 +81,7 @@ uint8 abort #abort joystick operation. Change over to transmitter on arduino
     """
     try:
       _x = self
-      buff.write(_get_struct_7B().pack(_x.esc, _x.bp, _x.daq, _x.wrt, _x.cp, _x.rvm, _x.abort))
+      buff.write(_get_struct_8B().pack(_x.esc, _x.bp, _x.daq, _x.wrt, _x.cp, _x.rvm, _x.abort, _x.start))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -91,8 +95,8 @@ uint8 abort #abort joystick operation. Change over to transmitter on arduino
       end = 0
       _x = self
       start = end
-      end += 7
-      (_x.esc, _x.bp, _x.daq, _x.wrt, _x.cp, _x.rvm, _x.abort,) = _get_struct_7B().unpack(str[start:end])
+      end += 8
+      (_x.esc, _x.bp, _x.daq, _x.wrt, _x.cp, _x.rvm, _x.abort, _x.start,) = _get_struct_8B().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -106,7 +110,7 @@ uint8 abort #abort joystick operation. Change over to transmitter on arduino
     """
     try:
       _x = self
-      buff.write(_get_struct_7B().pack(_x.esc, _x.bp, _x.daq, _x.wrt, _x.cp, _x.rvm, _x.abort))
+      buff.write(_get_struct_8B().pack(_x.esc, _x.bp, _x.daq, _x.wrt, _x.cp, _x.rvm, _x.abort, _x.start))
     except struct.error as se: self._check_types(struct.error("%s: '%s' when writing '%s'" % (type(se), str(se), str(locals().get('_x', self)))))
     except TypeError as te: self._check_types(ValueError("%s: '%s' when writing '%s'" % (type(te), str(te), str(locals().get('_x', self)))))
 
@@ -121,8 +125,8 @@ uint8 abort #abort joystick operation. Change over to transmitter on arduino
       end = 0
       _x = self
       start = end
-      end += 7
-      (_x.esc, _x.bp, _x.daq, _x.wrt, _x.cp, _x.rvm, _x.abort,) = _get_struct_7B().unpack(str[start:end])
+      end += 8
+      (_x.esc, _x.bp, _x.daq, _x.wrt, _x.cp, _x.rvm, _x.abort, _x.start,) = _get_struct_8B().unpack(str[start:end])
       return self
     except struct.error as e:
       raise genpy.DeserializationError(e)  # most likely buffer underfill
@@ -131,9 +135,9 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
-_struct_7B = None
-def _get_struct_7B():
-    global _struct_7B
-    if _struct_7B is None:
-        _struct_7B = struct.Struct("<7B")
-    return _struct_7B
+_struct_8B = None
+def _get_struct_8B():
+    global _struct_8B
+    if _struct_8B is None:
+        _struct_8B = struct.Struct("<8B")
+    return _struct_8B

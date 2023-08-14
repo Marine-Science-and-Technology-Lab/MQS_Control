@@ -104,3 +104,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/xbee" TYPE PROGRAM FILES "/home/lab/mqs/build/xbee/catkin_generated/installspace/mqs_autoRelease.py")
 endif()
 
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/xbee" TYPE PROGRAM FILES "/home/lab/mqs/build/xbee/catkin_generated/installspace/mqs_maneuver.py")
+endif()
+

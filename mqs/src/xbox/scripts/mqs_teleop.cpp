@@ -16,7 +16,7 @@
  
    ros::NodeHandle nh_;
  
-   int fwd,rev,strl,thl,strm,esc,bp,daq,wrt,cp,rvm,abort;
+   int fwd,rev,strl,thl,strm,esc,bp,daq,wrt,cp,rvm,abort,start;
    int fwd_scale, rev_scale,strl_scale,thl_scale,strm_scale;
    int fwd_shift, rev_shift,strl_shift,thl_shift,strm_shift;
    //initialize the swtiches off
@@ -25,7 +25,8 @@
    bool daq_on=false;
    bool cp_on=false;
    bool wrt_on=false;
-   int prev_[5]={0,0,0,0,0};
+   bool start_on=false;
+   int prev_[6]={0,0,0,0,0};
    bool init_=true; 
    ros::Publisher cmd_ctrl_pub;
    ros::Subscriber joy_sub_;
@@ -45,7 +46,8 @@
   wrt(4), //wheel retraction binary on LB
   cp(3), //cooling pump binary on Y
   rvm(5), //marine reverse on RB
-  abort(8) //abort to RC transmitter on Xbox button
+  abort(8), //abort to RC transmitter on Xbox button
+  start(7) //start queued manuever
  {
    //setting up parameters for joystick, sets defualt to
    //the initial value for each param to centered (127) or zero 
@@ -93,6 +95,7 @@
    op_joy.wrt=joy->buttons[wrt]; //momentary
    op_joy.cp=joy->buttons[cp]; //switch
    op_joy.rvm=joy->buttons[rvm]; //momentary
+   op_joy.start=joy->axes[start]; //switch
    op_joy.abort=joy->buttons[abort]; //switch, permanent abort for pc operation
 
   //initializes previous value first time 
@@ -103,6 +106,7 @@
     prev_[2]=op_joy.daq;
     prev_[3]=op_joy.cp;
     prev_[4]=op_joy.wrt;
+    prev_[5]=op_joy.start;
     init_= false;
   }
 
@@ -117,7 +121,7 @@
     //strm on channel 0
     cmd_ctrl_.cmd_ctrls[0]=int(strm_scale*marine_joy.strm+strm_shift);
     
-    //fwd/rev on channel 1
+    //fwd/rev on channel 1 mqs_ctrl_.cmds[i] = 0;
     if(land_joy.fwd<1) //only input on LT
     {
       //go forward
@@ -228,8 +232,22 @@
     cmd_ctrl_.cmd_ctrls[9]=op_joy.rvm;
     //abort to RC transmitter on channel 10
     cmd_ctrl_.cmd_ctrls[10]=op_joy.abort; //If this is true joystick operation will be switched off on the arduino
-    //last 5 channels are open
-    cmd_ctrl_.cmd_ctrls[11]=0;
+    
+    //on-off switch for start manuever
+    if (op_joy.start==1 && prev_[5]==0) //if start button is pressed the first time turn it on
+    {
+      start_on= !start_on;
+      cmd_ctrl_.cmd_ctrls[11]=op_joy.start;
+    }
+    if (start_on==true)
+    {
+      cmd_ctrl_.cmd_ctrls[11]=1; //hold wrt on
+    }
+    else
+    {
+      cmd_ctrl_.cmd_ctrls[11]=0;
+    }
+    //last 4 channels are open
     cmd_ctrl_.cmd_ctrls[12]=0;
     cmd_ctrl_.cmd_ctrls[13]=0;
     cmd_ctrl_.cmd_ctrls[14]=0;
@@ -237,12 +255,14 @@
 
    }
    cmd_ctrl_pub.publish(cmd_ctrl_);
+
    
    prev_[0]=op_joy.esc;
    prev_[1]=op_joy.bp;
    prev_[2]=op_joy.daq;
    prev_[3]=op_joy.cp;
    prev_[4]=op_joy.wrt;
+   prev_[5]=op_joy.start;
 
   }
  

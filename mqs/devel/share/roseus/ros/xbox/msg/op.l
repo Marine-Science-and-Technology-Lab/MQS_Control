@@ -14,7 +14,7 @@
 
 (defclass xbox::op
   :super ros::object
-  :slots (_esc _bp _daq _wrt _cp _rvm _abort ))
+  :slots (_esc _bp _daq _wrt _cp _rvm _abort _start ))
 
 (defmethod xbox::op
   (:init
@@ -26,6 +26,7 @@
     ((:cp __cp) 0)
     ((:rvm __rvm) 0)
     ((:abort __abort) 0)
+    ((:start __start) 0)
     )
    (send-super :init)
    (setq _esc (round __esc))
@@ -35,6 +36,7 @@
    (setq _cp (round __cp))
    (setq _rvm (round __rvm))
    (setq _abort (round __abort))
+   (setq _start (round __start))
    self)
   (:esc
    (&optional __esc)
@@ -57,6 +59,9 @@
   (:abort
    (&optional __abort)
    (if __abort (setq _abort __abort)) _abort)
+  (:start
+   (&optional __start)
+   (if __start (setq _start __start)) _start)
   (:serialization-length
    ()
    (+
@@ -73,6 +78,8 @@
     ;; uint8 _rvm
     1
     ;; uint8 _abort
+    1
+    ;; uint8 _start
     1
     ))
   (:serialize
@@ -93,6 +100,8 @@
        (write-byte _rvm s)
      ;; uint8 _abort
        (write-byte _abort s)
+     ;; uint8 _start
+       (write-byte _start s)
      ;;
      (if (null strm) (get-output-stream-string s))))
   (:deserialize
@@ -111,11 +120,13 @@
      (setq _rvm (sys::peek buf ptr- :char)) (incf ptr- 1)
    ;; uint8 _abort
      (setq _abort (sys::peek buf ptr- :char)) (incf ptr- 1)
+   ;; uint8 _start
+     (setq _start (sys::peek buf ptr- :char)) (incf ptr- 1)
    ;;
    self)
   )
 
-(setf (get xbox::op :md5sum-) "ce1000fdad5bdc47b754e81eac323f68")
+(setf (get xbox::op :md5sum-) "a88ed851050f435447fefa00180357ec")
 (setf (get xbox::op :datatype-) "xbox/op")
 (setf (get xbox::op :definition-)
       "# Message files for all of the switch commands for the MQS
@@ -127,11 +138,12 @@ uint8 wrt  #raise and lower the wheel retraction
 uint8 cp   #turn on/off the cooling pumps for the ESC's
 uint8 rvm  #hold to engage reverse mode for marine
 uint8 abort #abort joystick operation. Change over to transmitter on arduino
+uint8 start #start manuever switch to begin a keyed up manuever
 
 ")
 
 
 
-(provide :xbox/op "ce1000fdad5bdc47b754e81eac323f68")
+(provide :xbox/op "a88ed851050f435447fefa00180357ec")
 
 

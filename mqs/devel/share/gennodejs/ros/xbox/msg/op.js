@@ -25,6 +25,7 @@ class op {
       this.cp = null;
       this.rvm = null;
       this.abort = null;
+      this.start = null;
     }
     else {
       if (initObj.hasOwnProperty('esc')) {
@@ -69,6 +70,12 @@ class op {
       else {
         this.abort = 0;
       }
+      if (initObj.hasOwnProperty('start')) {
+        this.start = initObj.start
+      }
+      else {
+        this.start = 0;
+      }
     }
   }
 
@@ -88,6 +95,8 @@ class op {
     bufferOffset = _serializer.uint8(obj.rvm, buffer, bufferOffset);
     // Serialize message field [abort]
     bufferOffset = _serializer.uint8(obj.abort, buffer, bufferOffset);
+    // Serialize message field [start]
+    bufferOffset = _serializer.uint8(obj.start, buffer, bufferOffset);
     return bufferOffset;
   }
 
@@ -109,11 +118,13 @@ class op {
     data.rvm = _deserializer.uint8(buffer, bufferOffset);
     // Deserialize message field [abort]
     data.abort = _deserializer.uint8(buffer, bufferOffset);
+    // Deserialize message field [start]
+    data.start = _deserializer.uint8(buffer, bufferOffset);
     return data;
   }
 
   static getMessageSize(object) {
-    return 7;
+    return 8;
   }
 
   static datatype() {
@@ -123,7 +134,7 @@ class op {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return 'ce1000fdad5bdc47b754e81eac323f68';
+    return 'a88ed851050f435447fefa00180357ec';
   }
 
   static messageDefinition() {
@@ -138,6 +149,7 @@ class op {
     uint8 cp   #turn on/off the cooling pumps for the ESC's
     uint8 rvm  #hold to engage reverse mode for marine
     uint8 abort #abort joystick operation. Change over to transmitter on arduino
+    uint8 start #start manuever switch to begin a keyed up manuever
     
     `;
   }
@@ -195,6 +207,13 @@ class op {
     }
     else {
       resolved.abort = 0
+    }
+
+    if (msg.start !== undefined) {
+      resolved.start = msg.start;
+    }
+    else {
+      resolved.start = 0
     }
 
     return resolved;

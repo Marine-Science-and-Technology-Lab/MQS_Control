@@ -1,8 +1,0 @@
-prefix=/home/michael/quadski_control/devel
-
-Name: xbee
-Description: Description of xbee
-Version: 0.0.0
-Cflags: -I/home/michael/quadski_control/devel/include
-Libs: -L${prefix}/lib 
-Requires: 

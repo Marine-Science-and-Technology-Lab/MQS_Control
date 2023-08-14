@@ -378,6 +378,12 @@ gtest_hide_internal_symbols:BOOL=OFF
 //Dependencies for the target
 gtest_main_LIB_DEPENDS:STATIC=general;-lpthread;general;gtest;
 
+//Value Computed by CMake
+gui_BINARY_DIR:STATIC=/home/lab/mqs/build/gui
+
+//Value Computed by CMake
+gui_SOURCE_DIR:STATIC=/home/lab/mqs/src/gui
+
 //The directory containing a CMake configuration file for joy.
 joy_DIR:PATH=/opt/ros/melodic/share/joy/cmake
 
