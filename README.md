@@ -1,88 +1,64 @@
 # MQS_Control
-This is a ROS/Arduino control architecture built for the purpose of controlling the IIHR Model Quad-Ski (MQS) robot. The purpose of this code was to add more control functionality,
-as well as some semi-autonomous function to the MQS robot. The architecture is setup so that future work on a closed-loop control program can be implemented in the future to 
-add full autonomous behavior both in the IIHR wave basin facitlity and out in the field. This architecure was designed by Mike Swafford for the partial fullfilment of a 
-Masters in mechanical engineering from the University of Iowa.
+MQS_Control is a ROS/Arduino control architecture designed for the IIHR Model Quad-Ski (MQS) robot. The goal of this project is to enhance the control functionality and introduce semi-autonomous capabilities to the MQS robot. The architecture has been structured to facilitate the integration of a closed-loop control program in the future, enabling full autonomous behavior both in the IIHR wave basin facility and in real-world scenarios.
 
-# Arduino
-The Arduino code is listed under the MQS_Robot_Control folder.
-It contains the base code as well as needed header files for interpriting and queuing xbee messages. The base code has two control methods, ROS (default) and RC transmitter.
-The arduino code only reads data from either the Xbee hardware serial (UART/ RX 0) or from the RC hardware serial (RX5)  and executes servo commands. No functionality to send back messages is currently implimented,
-however, the location where it could be done is commented in the code.
+This architecture was conceptualized by Mike Swafford as part of his Masters thesis in the Mechanical Engineering program at the University of Iowa.
 
-# ROS
-The ROS code is listed in the mqs folder.
-Download the entire folder in a catkin_workspace and catkin_make to set up the ROS system. Current working packages are: mocap_base, mocap_qualysis, xbee, and xbox. All other
-packages are not fully built. See description of each package below
+## Arduino
+The Arduino code is located in the `MQS_Robot_Control` folder. It includes both the foundational code and necessary header files for processing and queuing XBee messages. The base code features two control methods: ROS (default) and RC transmitter. The Arduino code reads data from either the XBee hardware serial (UART/RX 0) or the RC hardware serial (RX5), and translates these inputs into servo commands. While the code does not currently implement functionality to send messages back, the relevant sections for potential implementation are commented within the code.
 
-# MOCAP_BASE
-This is the main driver for the motion capture system. It contains the basic workings for the mocap_qualysis node. It contains a kalman filter as well as the base driver, 
-the header files for which are located in the include folder and the scripts located in the src folder. The basic function is to detect whether information from QTM is available,
-filter data, and publish raw messages about the data. No editing needs to be done here unless you wish to emply more features from the qualisys C++ SDK.
+## ROS
+The ROS code is located in the `mqs` folder. To set up the ROS system, download the entire folder into a catkin workspace and use `catkin_make`. Currently, the following working packages are available: `mocap_base`, `mocap_qualysis`, `xbee`, and `xbox`. Note that other packages are still under development and not yet fully operational. For detailed information about each package, refer to the descriptions provided below.
 
-# MOCAP_QUALYSIS
-This is the main node for the qualysis motion capture system. It contains the entire SDK library in the include folder. Main scripts are qualysis and qualysisdriver. The driver
-is where all the functionality ocurrs. It processes and publishes messages for both the 6DOF and 3D marker data for the MQS robot. The 6DOF data published is called tf and
-published under the StampedTransform ROS message it contains the transformation, frame_id, and a time stamp. 3D marker messages are called marker_xyz and published under the 
-StampedVector3 ROS message, they contain the X, Y, and Z of a marker, the markers name (bow, port, etc.) and a time stamp. This script is also where you can add more
-qualysis SDK functionality like triggering, marking events, etc. A simple launch file is also available in this package, it's purpose is for debugging QTM data. The nodes purpose
-is to provide position and pose data to SIMULINK for the purpose of developing a closed-loop control algorithm for the MQS.
+### MOCAP_BASE
+The `MOCAP_BASE` package serves as the central driver for the motion capture system. It forms the foundation of the `mocap_qualysis` node and incorporates essential components for its functioning.
 
-# XBEE
-This is the main node for operating the xbee radio transmitter, the feed-forward control program, as well as handling message authority. In the messages folder there are three 
-custom message types: auto_ctrl is the auto control message type that either the feed-forward control program or simulink can publish to. cmd_ctrl is the modified joystick 
-control message where xbox control inputs are mapped to specific robot functions. mqs_ctrl is the final published message that is sent over the xbee after mqs_handshake decides
-which control type has authority, joystick or feed-forward. mqs_handshake is located int he xbee src folder. As stated before mqs_handshake decides which message has priority
-to control the robot. It makes this decision based on which node is publishing fresh data and wheter the mission elapsed time (MET) message from the feed-forward control scheme
-is running. If the MET is not running handshake activateds joystick override passing all control to the xbox controller. If the MET is running, certain controls will be available
-to the feed-forward scheme and others available to the xbox controller, these are mainly determined by time parameters set on the main parameter server (See mqs_teleop.launch in
-the xbox node for more details). In the scripts folder is where the python codes are located, mqs_xbee is only used to send the control signals as byte objects over 802 rf to 
-a reciever on the robot. mqs_autoRelease is the feed-forward control program that handels recieving a trigger message from another computer (for our purpose this was a computer 
-monitoriing wave phase in labVIEW) the trigger message is simply a 1 in hex (0x01) with all the appropriate xbee header information. Once the start bit is recieved the mission elapsed
-time clock (MET) starts the time is based on the parameter set on the parameter server (see xbox mqs_teleop.launch). During the MET several different driving and control
-operations can be performed. By default it is set for outbound cases at a crawl speed for 4 seconds, a marine throttle of 10%, and wheels up after 2 seconds. All feed-forward parameters can be set on the
-parameter server before or during operation. For inbound cases the signs on the land drive section (i=1) must be swapped (see comments in code) this will change the drive time
-to a delta meaning they will start driving after a specified time. For inbound the wheels up time also should be changed to 0 and should be set on the joystick before launching
-to prevent the wheels from locking in the up position. It should be noted that for ease of operation once the MET has finished all control will be given back to the driver, however,
-the auto throttle will remain on until the pilot intervenes, this acts as a sort of cruise control that makes drivning the model in the water a single stick operation. To remove 
-this feature simply add:
- && mqs_met < MET_END 
- to the if statment for i=2 in the mqs_handshake autoCallback function
+- The `MOCAP_BASE` contains both the kalman filter implementation and the core driver. Header files related to this functionality can be found in the `include` folder, while the corresponding scripts are located within the `src` folder.
+- This package's core purpose revolves around detecting the availability of information from Qualisys Track Manager (QTM), employing a kalman filter for data processing, and subsequently publishing raw messages containing the filtered data.
 
-# XBOX
-This is the meat and potatos of the MQS ROS packages. This node handles the joy message and converts to MQS controls on the xbox controller. This node also houses the main launch
-file in the launch folder called mqs_teleop.launch. All buttons and axis on the joystick are configurable, however, we found the defualts to be the easiest to drive in such a
-dynamic environment as waves. The mqs_teleop also scales all the joystick outputs to the correct byte types, sets the deadzones and determines what values are valid. The launch
-file mqs_teleop.launch found in the xbox launch folder is the main ROS launch file for the project. Running roslaunch xbox mqs_teleop.launch starts up all the necessary nodes
-and initializes the parameter server to the default value. Important items in the launch file are as follows:
+The functionality provided by `MOCAP_BASE` is designed to effectively interact with the Qualisys C++ SDK. While minimal changes are necessary for its core operations, you can explore this package further if you wish to integrate additional features from the Qualisys SDK.
 
-Joy node: sets parameters for the raw joystick, has two parameters, the first is the usb port, defualt is /dev/input/js0. The second parameter is the deadzone, for smooth operation
-we found 0.1 to be best.
+### MOCAP_QUALYSIS
+The `MOCAP_QUALYSIS` node serves as the core component for integrating the Qualisys motion capture system. Within the `include` folder, you'll find the complete SDK library. Key scripts are `qualysis` and `qualysisdriver`. The `qualysisdriver` is where the core functionality resides. It processes and publishes messages for both 6DOF and 3D marker data of the MQS robot.
+- The 6DOF data, published as a "tf" (transform) under the `StampedTransform` ROS message, includes the transformation, frame ID, and a timestamp.
+- The 3D marker data messages, named `marker_xyz`, are published under the `StampedVector3` ROS message. They encompass the X, Y, and Z coordinates of a marker, its name (e.g., "bow," "port"), and a timestamp.
 
-mqs teleop node: sets the conversion of xbox controller parameters to MQS functions. The first set of parameters deal with button layout, these maybe changed as desired, but must
-be set before launching. The scales parameters set the range of the steering, and throttles. The only one that you can change on the fly is scale_throttle which will set the max
-marine throttle to what ever value you desire. It is recommened at this time to not exceed 165.
+This script also provides the flexibility to incorporate additional Qualisys SDK functionality such as triggering events and marking points. A basic launch file is available for debugging Qualisys data. The primary goal of this node is to supply position and pose data to SIMULINK for developing a closed-loop control algorithm for the MQS.
 
-auto node: sets auto parameters for the mqs_autoRelease feed-forward control. All the parameters are labeled but a quick summary is available here:
-auto_land_drive sets the land drive speed, you should only be entering values greater than 127. Defualt is 0 which is hardcoded to 160 (crawl) in the autoRelease function.
-auto_land_drive_time sets the duration for the land time to run. defualt is 4 seconds
-MET sets the durations for the mission elapsed time clock. defualt is 10 seconds
-auto_marine_drive sets the marine throttle. defualt is 0 which is hardcoded to 26 (10%)
-auto_wheels_up_time sets the time when the wheels will retract. defualt is 2 seconds (transiion time is about 2-3 seconds)
-auto_land_steer sets the land steering angle. towards 255 goes left, towards 0 goes right. default is 127 for straight ahead.
-auto_land_steer_time sets the time for the land steering. defualt is 0. Generallhy when in use I set this the same as the auto wheels up time
-auto_marine_steer sets the steering angle for the waterjet. towards 255 goes left, towards 0 goes right. defualt is 127 for straight ahead.
-auto_marine_steer_time sets the time for auto marine steer. defualt is 0. Generally I set this pretty high for small angles (near 127) and low for larger angles
+### XBEE
+The `XBEE` node plays a crucial role in the management of the xbee radio transmitter, the implementation of the feed-forward control program, and the handling of message authority. Inside the `messages` folder, you will encounter three distinct custom message types:
+- `auto_ctrl`: Automatic control messages intended for feed-forward programs or Simulink.
+- `cmd_ctrl`: Modified joystick control messages that map Xbox controller inputs to specific robot functions.
+- `mqs_ctrl`: Final messages that are transmitted via xbee after the `mqs_handshake` determines control authority.
 
-Qualysis node: sets the parameters for the QTM server
-server address is the IPV4 address of the machine running qualysis
-server base port is the port selecting in setting for real time QTM. default is 22222
-fixed frame id sets the name for tf message name
-udp_port sets the udp. -1 sets to TCP/IP and is the default
-model list and marker list are dynamically allocated list for tracking objects or markers. you do not need to set these if your QTM data has labels
+Key aspects of this node include:
+- `mqs_handshake`, located within the xbee source folder, decides which control message takes precedence. It bases this determination on the freshness of data published by nodes and the status of the mission elapsed time (MET) message from the feed-forward control scheme. If the MET is not active, joystick control prevails; if the MET is running, distinct controls are accessible to feed-forward and joystick controllers based on preset time parameters (specified in `mqs_teleop.launch` of the xbox node).
+- Noteworthy exceptions to authority involve control timeouts (5 minutes for joystick, 1 second for feed-forward). Furthermore, a direct throttle override is implemented: any modification to the throttle during feed-forward operation halts feed-forward control and fully returns control to the joystick.
+
+The `scripts` folder contains Python code files:
+- `mqs_xbee` transmits control signals as byte objects over 802 RF to a robot receiver.
+- `mqs_autoRelease` serves as the feed-forward control program that reacts to a trigger message to initiate mission elapsed time (MET), governing various driving and control operations.
+- `mqs_maneuver.py` empowers pilots to execute predefined maneuvers such as straight-ahead, circle/donut, and zig-zag. Activation of these maneuvers involves specific parameter settings, enhancing control flexibility.
+
+To activate the `mqs_manveuver` option, press the UP button on the Xbox D-pad.
+
+### XBOX
+The `XBOX` node forms the foundation of the MQS ROS packages. This node assumes the responsibility of managing the joy message and converting it into MQS controls using the Xbox controller.
+
+- The core script, `mqs_teleop.py`, translates Xbox controller inputs into MQS controls, encompassing joystick inputs and Xbox controller buttons.
+- The node also encompasses the primary launch file, `mqs_teleop.launch`, which resides in the `launch` folder. This launch file serves as the central configuration point for the project, initializing necessary nodes and parameters.
+
+Key attributes of the `mqs_teleop.launch` include:
+- The `joy` node, which establishes parameters for the raw joystick. This node requires two parameters: the USB port (default: `/dev/input/js0`) and the deadzone (recommended: 0.1 for smooth operation).
+- The `mqs_teleop` node, which handles the conversion of Xbox controller parameters into MQS functions. Parameters within this node involve button layout configuration, scales for steering and throttles, and other dynamic settings.
+
+Furthermore, the launch file initializes the `auto` node, setting parameters for the `mqs_autoRelease` feed-forward control. Parameters govern various aspects, such as land drive speed, mission elapsed time (MET) duration, marine throttle, wheels-up timing, and steering angles.
+
+The `Qualysis` node sets parameters for the Qualisys Track Manager (QTM) server, including the server address, base port, frame ID, UDP settings, and model and marker lists.
+
+This comprehensive node facilitates dynamic interaction and control of the MQS robot using the Xbox controller, making it a pivotal component of the project.
 
 
-# Other important notes
+### Other important notes
 Before turning on the teensy on boot up of "roslaunch xbox mqs_teleop.launch" the two xbox controller triggers (LT and RT) need to be depressed and released, this calibrates
 the controller, it must be done each time the nodes are started! You can turn on the teensy after this has been completed.
 
@@ -91,5 +67,10 @@ If the mqs_autoRelease receives a nonetype on the xbee it will kill the node, th
 ![MQS_XBOX_Controller_layout](https://github.com/Swaffles/MQS_Control/assets/58667766/d70a6a8b-cc62-4bcd-b81f-9987fdf9821c)
 ![mqs_rc_control](https://github.com/Swaffles/MQS_Control/assets/58667766/d8164099-71f5-485f-9658-de0143ebf149)
 
+# Contributing
+Contributions to this project are welcome. If you have ideas for improvements, additional functionalities, or bug fixes, feel free to submit pull requests or open issues.
+
+# License
+This project is licensed under the [Creative Commons Zero v1.0 Universal](https://github.com/Swaffles/MQS_Control/blob/master/LICENSE).
 
 
