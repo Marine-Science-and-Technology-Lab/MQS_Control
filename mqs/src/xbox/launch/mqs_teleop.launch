@@ -10,11 +10,14 @@
 	<!-- MQS Teleop Node-->
 	<node pkg="xbox" type="mqs_teleop" name="teleop"/>
 	<!-- Axes parameters-->
-	<param name="steer_marine" value="0" type="int" />
-	<param name="reverse" value="2" type="int"/>
-	<param name="steer_land" value="3" type="int" />
-	<param name="throttle" value="4" type="int" /> <!--throttle on RS forward-->
-	<param name="forward" value="5" type="int" />
+	<!-- Commented out b/c they don't need to be here - these are
+		already set in mqs_teleop.cpp
+		<param name="steer_marine" value="0" type="int" />
+		<param name="reverse" value="2" type="int"/>
+		<param name="steer_land" value="3" type="int" />
+		<param name="throttle" value="4" type="int" /> 
+		<param name="forward" value="5" type="int" /> 
+	-->
 
 	<param name="scale_steer_marine" value="127" type="int" />
 	<param name="scale_reverse" value="64" type="int" />

@@ -36,17 +36,17 @@
 
  TeleopMQS::TeleopMQS():
   strm(0), //marine steering on LS <->
-  rev(2), //land rev on LT
-  strl(3), //land steer on RS <->  
-  thl(4), //marine throttle on RS ^ only
-  fwd(5), //land fwd on RT
+  rev(5), //land rev on LT
+  strl(2), //land steer on RS <->  
+  thl(3), //marine throttle on RS ^ only
+  fwd(4), //land fwd on RT
   esc(0), //esc binary on A
   bp(1), //bilge pump binary on B
-  daq(2), //daq binary on X
-  wrt(4), //wheel retraction binary on LB
-  cp(3), //cooling pump binary on Y
-  rvm(5), //marine reverse on RB
-  abort(8), //abort to RC transmitter on Xbox button
+  daq(3), //daq binary on X
+  cp(4), //cooling pump binary on Y
+  wrt(6), //wheel retraction binary on LB
+  rvm(7), //marine reverse on RB
+  abort(12), //abort to RC transmitter on Xbox button
   start(7) //start queued manuever
  {
    //setting up parameters for joystick, sets defualt to
