@@ -64,8 +64,13 @@ the controller, it must be done each time the nodes are started! You can turn on
 
 If the mqs_autoRelease receives a nonetype on the xbee it will kill the node, this is an issue being worked on, but in the meantime the easiest fix is to reset and reboot 
 
-![MQS_XBOX_Controller_layout](https://github.com/Swaffles/MQS_Control/assets/58667766/d70a6a8b-cc62-4bcd-b81f-9987fdf9821c)
-![mqs_rc_control](https://github.com/Swaffles/MQS_Control/assets/58667766/d8164099-71f5-485f-9658-de0143ebf149)
+<figure align="center">
+  <figcaption>Credit: Julian Alvarado and Nate Bastianen</figcaption>
+  <img src="https://github.com/Swaffles/MQS_Control/blob/b63a98e6f8f0c61810bd075abcfd8ddce449a0bd/drawing%20finished.svg" alt="MQS XBOX Controller Layout">
+</figure>
+<figure align="center">
+  <img src="https://github.com/Swaffles/MQS_Control/assets/58667766/d8164099-71f5-485f-9658-de0143ebf149" alt = "MQS R/C Joystick Layout">
+</figure>  
 
 # Contributing
 Contributions to this project are welcome. If you have ideas for improvements, additional functionalities, or bug fixes, feel free to submit pull requests or open issues.
