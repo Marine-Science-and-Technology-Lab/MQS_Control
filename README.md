@@ -66,7 +66,7 @@ If the mqs_autoRelease receives a nonetype on the xbee it will kill the node, th
 
 <figure align="center">
   <figcaption>Credit: Julian Alvarado and Nate Bastianen</figcaption>
-  <img src="https://github.com/Swaffles/MQS_Control/blob/b63a98e6f8f0c61810bd075abcfd8ddce449a0bd/drawing%20finished.svg" alt="MQS XBOX Controller Layout">
+  <img src="https://github.com/Swaffles/MQS_Control/blob/e57cb33a03eb00c81ed9a6930778e48385917409/drawing%20finished.jpg" alt="MQS XBOX Controller Layout">
 </figure>
 <figure align="center">
   <img src="https://github.com/Swaffles/MQS_Control/assets/58667766/d8164099-71f5-485f-9658-de0143ebf149" alt = "MQS R/C Joystick Layout">
