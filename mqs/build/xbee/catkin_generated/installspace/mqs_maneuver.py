@@ -98,14 +98,40 @@ def mqs_maneuver():
 
     zigzag_rate = rospy.get_param("zigzag_rate")
     zigzag = rospy.get_param("zigzag")
-    print("Zigzag setting %d" % zigzag, " at rate %f" % zigzag_rate)
-    t = 0.0  # initialize t
-    rate = rospy.Rate(100)
+    #print("Zigzag setting %d" % zigzag, " at rate %f" % zigzag_rate)
+    start_time_MET = rospy.Time.now()  # initialize start time
+    start_time_t = rospy.Time.now()
+    #rate = rospy.Rate(100)
     while MET < rospy.get_param("MET") and not rospy.is_shutdown():
+        current_time = rospy.Time.now()
+        elapsed_time_MET = (current_time - start_time_MET).to_sec()
+        elapsed_time_t = (current_time-start_time_t).to_sec()
         for i in range(len(auto_ctrls_)):
             if i == 0:  # marine steering
                 if zigzag != 0 and MET < rospy.get_param("auto_marine_steer_time"):  # if the time is not set control is on joystick
-                    if zigzag == 2:
+                    if zigzag == 3:
+                        rospy.loginfo("Lane Change Maneuver Active")
+                        # drive for 1 zig zag rate, turn to set steering for 1 zig zag rate, turn back to center
+                        if elapsed_time_t < zigzag_rate:
+                            auto_ctrls_[i] = 127 # center
+                        elif elapsed_time_t >= zigzag_rate and elapsed_time_t < 2 * zigzag_rate:
+                            auto_ctrls_[i] = rospy.get_param("auto_marine_steer")
+                            if auto_ctrls_[i] < 0 or auto_ctrls_[i] > 255:
+                                auto_ctrls_[i] = 127  # center jet
+                                rospy.logwarn("Invalid range for marine steering!")
+                        elif elapsed_time_t >= 2* zigzag_rate and elapsed_time_t < 2.5 * zigzag_rate:
+                            temp_m = 127 - rospy.get_param("auto_marine_steer")
+                            auto_ctrls_[i] = 128 + temp_m  # to ensure mirroring about the cetner point at 127
+                            rospy.loginfo("Temp: %d" % temp_m)
+                            rospy.loginfo("auto marine steer: %d" % auto_ctrls_[i])
+                            if auto_ctrls_[i] < 0 or auto_ctrls_[i] > 255:
+                                auto_ctrls_[i] = 127  # center jet
+                                rospy.logwarn("Invalid range for marine steering!")
+                            print("Marine steering set to %d" % auto_ctrls_[i], " for t = %f" % t)
+                        else:
+                            # set steering back to centered
+                            auto_ctrls_[i] = 127
+                    elif zigzag == 2:
                         rospy.loginfo("Circle Maneuver Active")
                         # do circles at specified steering param
                         auto_ctrls_[i] = rospy.get_param("auto_marine_steer")
@@ -115,31 +141,39 @@ def mqs_maneuver():
                     elif zigzag == 1:
                         rospy.loginfo("Zigzag Maneuver Active at rate %f" % zigzag_rate)
                         # do zigzags at specified rate
-                        if t < zigzag_rate:
+                        if elapsed_time_t < zigzag_rate:
+                            auto_ctrls_[i] = 127    # keep centered for one rate time
+                        elif elapsed_time_t >= zigzag_rate and elapsed_time_t < 2 * zigzag_rate:
+                            # Read and write the steering value from the parameter server to the specified steering
                             auto_ctrls_[i] = rospy.get_param("auto_marine_steer")
                             if auto_ctrls_[i] < 0 or auto_ctrls_[i] > 255:
                                 auto_ctrls_[i] = 127  # center jet
                                 rospy.logwarn("Invalid range for marine steering!")
                             print("Marine steering set to %d" % auto_ctrls_[i], " for t = %f" % t)
-                        elif t >= zigzag_rate and t < 2 * zigzag_rate:
-                            temp = 127 - rospy.get_param("auto_marine_steer")
-                            auto_ctrls_[i] = 128 + temp  # to ensure mirroring about the cetner point at 127
+                        elif elapsed_time_t >= 2 * zigzag_rate and elapsed_time_t < 3 * zigzag_rate:
+                            # Read the steering parameter
+                            temp_m = 127 - rospy.get_param("auto_marine_steer")
+                            auto_ctrls_[i] = 128 + temp_m  # to ensure mirroring about the cetner point at 127
                             rospy.loginfo("Temp: %d" % temp)
-                            rospy.loginfo("auto steer: %d" % auto_ctrls_[i])
+                            rospy.loginfo("auto marine steer: %d" % auto_ctrls_[i])
                             if auto_ctrls_[i] < 0 or auto_ctrls_[i] > 255:
                                 auto_ctrls_[i] = 127  # center jet
                                 rospy.logwarn("Invalid range for marine steering!")
                             print("Marine steering set to %d" % auto_ctrls_[i], " for t = %f" % t)
                         else:
-                            t = 0  # reset t to start zigzag over
+                            start_time_t = rospy.Time.now() - rospy.Duration(zigzag_rate)
+                            #t = zigzag_rate  # reset t to start zigzag over
                             rospy.loginfo("t reset to 0")
                             auto_ctrls_[i] = rospy.get_param("auto_marine_steer")
-                            rospy.loginfo("auto steer: %d" % auto_ctrls_[i])
+                            rospy.loginfo("auto marine steer: %d" % auto_ctrls_[i])
                 else:
-                    rospy.logwarn("Zigzag or time parameter is set to 0 or was not set")  # log reason
+                    #rospy.logwarn("Zigzag or time parameter is set to 0 or was not set")  # log reason
                     auto_ctrls_[i] = 127  # keep the jet centered
             elif i == 1:
-                auto_ctrls_[i] = 127  # for the love of god don't drive the wheels!
+                auto_ctrls_[i] = rospy.get_param("auto_land_drive")
+                if auto_ctrls_[i] < 0 or auto_ctrls_[i] > 255:
+                    auto_ctrls_[i] = 127    # don't drive the wheels on an incorrect parameter
+                    rospy.logwarn("Land drive parameter not set, land drive haulted")
             elif i == 2:
                 auto_ctrls_[i] = rospy.get_param(
                     "auto_marine_drive")  # set marine throttle to the specified auto_marine_drive parameter value
@@ -149,24 +183,90 @@ def mqs_maneuver():
                     rospy.logwarn("Marine drive parameter not set, marine drive set to default 10% throttle")
                 # rospy.loginfo("Marine Throttle set to: %d", auto_ctrls_[i])
             elif i == 3:
-                auto_ctrls_[i] = 127  # Keep land wheels centered
+                if zigzag != 0 and MET <= rospy.get_param("auto_land_steer_time"):  # if the time is not set control is on joystick
+                    if zigzag == 3:
+                        rospy.loginfo("Lane Change Maneuver Active")
+                        # drive for 1 zig zag rate, turn to set steering for 1 zig zag rate, turn back to center
+                        if elapsed_time_t < zigzag_rate:
+                            auto_ctrls_[i] = 127  # center
+                        elif elapsed_time_t >= zigzag_rate and elapsed_time_t < 2 * zigzag_rate:
+                            auto_ctrls_[i] = rospy.get_param("auto_land_steer")
+                            if auto_ctrls_[i] < 0 or auto_ctrls_[i] > 255:
+                                auto_ctrls_[i] = 127  # center wheels
+                                rospy.logwarn("Invalid range for land steering!")
+                            print("Land steering set to %d" % auto_ctrls_[i], " for t = %f" % elapsed_time_t)
+                        elif elapsed_time_t >= 2 * zigzag_rate and elapsed_time_t < 2.5 * zigzag_rate:
+                            # Read the steering parameter
+                            temp_l = 127 - rospy.get_param("auto_land_steer")
+                            auto_ctrls_[i] = 128 + temp_l  # to ensure mirroring about the cetner point at 127
+                            rospy.loginfo("Temp: %d" % temp_l)
+                            rospy.loginfo("auto land steer: %d" % auto_ctrls_[i])
+                            if auto_ctrls_[i] < 0 or auto_ctrls_[i] > 255:
+                                auto_ctrls_[i] = 127  # center jet
+                                rospy.logwarn("Invalid range for land steering!")
+                            print("Land steering set to %d" % auto_ctrls_[i], " for t = %f" % elapsed_time_t)
+                        else:
+                            # set steering back to centered
+                            auto_ctrls_[i] = 127
+                    elif zigzag == 2:
+                        rospy.loginfo("Circle Maneuver Active")
+                        # do circles at specified steering param
+                        auto_ctrls_[i] = rospy.get_param("auto_land_steer")
+                        if auto_ctrls_[i] < 0 or auto_ctrls_[i] > 255:
+                            auto_ctrls_[i] = 127  # center jet
+                            rospy.logwarn("Invalid range for land steering!")
+                    elif zigzag == 1:
+                        rospy.loginfo("Zigzag Maneuver Active at rate %f" % zigzag_rate)
+                        # do zigzags at specified rate
+                        if elapsed_time_t < zigzag_rate:
+                            auto_ctrls_[i] = 127    # keep centered for one rate time
+                        elif elapsed_time_t >= zigzag_rate and elapsed_time_t < 2 * zigzag_rate:
+                            # Read and write the steering value from the parameter server to the specified steering
+                            auto_ctrls_[i] = rospy.get_param("auto_land_steer")
+                            if auto_ctrls_[i] < 0 or auto_ctrls_[i] > 255:
+                                auto_ctrls_[i] = 127  # center jet
+                                rospy.logwarn("Invalid range for land steering!")
+                            print("Land steering set to %d" % auto_ctrls_[i], " for t = %f" % elapsed_time_t)
+                        elif elapsed_time_t >= 2 * zigzag_rate and elapsed_time_t < 3 * zigzag_rate:
+                            # Read the steering parameter
+                            temp_l = 127 - rospy.get_param("auto_land_steer")
+                            auto_ctrls_[i] = 128 + temp_l  # to ensure mirroring about the cetner point at 127
+                            rospy.loginfo("Temp: %d" % temp_l)
+                            rospy.loginfo("auto land steer: %d" % auto_ctrls_[i])
+                            if auto_ctrls_[i] < 0 or auto_ctrls_[i] > 255:
+                                auto_ctrls_[i] = 127  # center jet
+                                rospy.logwarn("Invalid range for land steering!")
+                            print("Land steering set to %d" % auto_ctrls_[i], " for t = %f" %elapsed_time_t)
+                        else:
+                            start_time_t = rospy.Time.now() - rospy.Duration(zigzag_rate)
+                            #t = zigzag_rate  # reset t to start zigzag over
+                            rospy.loginfo("t reset to 0")
+                            auto_ctrls_[i] = rospy.get_param("auto_land_steer")
+                            rospy.loginfo("auto land steer: %d" % auto_ctrls_[i])
+                else:
+                    #rospy.logwarn("Zigzag or time parameter is set to 0 or was not set")  # log reason
+                    auto_ctrls_[i] = 127  # keep the wheels centered
             elif i == 4:  # daq
                 auto_ctrls_[i] = 1  # don't turn off the DAQ!
             elif i == 5:  # bilge pump
                 auto_ctrls_[i] = 1  # turn on the bilge pump because I'll probably forget
             elif i == 7:
-                auto_ctrls_[i] = 1  # keep the wheels up!
+                if rospy.get_param("auto_wheels_up_time") == -1:
+                    auto_ctrls_[i] = 0 # don't raise the wheels
+                else:
+                    auto_ctrls_[i] = 1  # keep the wheels up!
             elif i == 8:  # cooling pump
                 auto_ctrls_[i] = 1  # turn on the cooling pump because I'll probably forget
             else:
                 auto_ctrls_[i] = 0  # send centered or off signal
         auto_pub.publish(auto_ctrls_)
         autoCallback(auto_ctrls_)
-        MET += 0.010  # 0.01 seconds per cycle since rate is 100Hz
-        t += 0.010  # 0.01 increment on zigzag_rate timer t
+        MET = elapsed_time_MET
+        #MET += 0.010  # 0.01 seconds per cycle since rate is 100Hz
+        #t += 0.010  # 0.01 increment on zigzag_rate timer t
         rospy.loginfo("MET: %f" % MET)
         met_pub.publish(MET)
-        rate.sleep()  # must be at end of loop!
+        #rate.sleep()  # must be at end of loop!
     if MET >= rospy.get_param("MET"):
         for i in range(len(auto_ctrls_)):
             if i == 0:
@@ -178,12 +278,16 @@ def mqs_maneuver():
                 rospy.loginfo("Marine Throttle set to: %d", auto_ctrls_[i])
             elif i == 3:
                 auto_ctrls_[i] = 127 #keep drive wheels undriven
+                rospy.loginfo("Land drive set to: %d", auto_ctrls_[i])
             elif i == 4:  # daq
                 auto_ctrls_[i] = 1  # don't turn off the DAQ!
             elif i == 5:  # bilge pump
                 auto_ctrls_[i] = 1  # turn on the bilge pump because I'll probably forget
             elif i == 7:
-                auto_ctrls_[i] = 1  # keep the wheels up!
+                if rospy.get_param("auto_wheels_up_time") == -1:
+                    auto_ctrls_[i] = 0  # don't raise the wheels
+                else:
+                    auto_ctrls_[i] = 1  # keep the wheels up!
             elif i == 8:  # cooling pump
                 auto_ctrls_[i] = 1  # turn on the cooling pump because I'll probably forget
             else:
@@ -203,14 +307,21 @@ if __name__ == "__main__":
     auto_reset = False  # bool value for reseting auto_count in mqs_handshake
     MET = 0  # mission elapsed time in seconds
     init_ = True  # bool for setting initial loop
+
+    # subscriber only needs to be set up once
+    rospy.Subscriber("cmd_ctrls", numpy_msg(cmd_ctrl), maneuver_node_start)
+
+    # create rate outside of loop
+    rate = rospy.Rate(100)
     while not rospy.is_shutdown():
         if init_:
             msg = 0
             prev_msg = msg
             init_ = False
         # subscribe to whole message, only look at start value
-        rospy.Subscriber("cmd_ctrls", numpy_msg(cmd_ctrl), maneuver_node_start)
-        rospy.spin()
+
+        #rospy.spin()
+        rate.sleep()
 
 
         #condider writing the subscribe here and calling the maneuver node start, and passing cmd_ctrl through to trigger

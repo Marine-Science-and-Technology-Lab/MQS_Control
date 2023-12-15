@@ -32,6 +32,7 @@
 
             //initialize all joystick channels to 0 or center
             int prev_joy[12]={0,0,0,0,0,0,0,0,0,0,0,0}; //array to track the previous joy positons
+            int init_joy[12]={0,0,0,0,0,0,0,0,0,0,0,0}; //array to track the initial joy positions
             bool init_=true; //init variable to set prev_joy
             int handshakemqs;
             bool fresh_joy=false; 
@@ -138,7 +139,7 @@
     {
         fresh_auto_count=0; //reset the fresh auto count when the MET has finished
         joystickOverride(); // why not here? 7-13 doesn't seem to make a difference
-        ROS_INFO("In GO_MQS else if\n");
+        //ROS_INFO("In GO_MQS else if\n");
     }
 	else
 	{
@@ -161,7 +162,7 @@
                 //if a command has changed on the joystick
                 if(current_joy[i] != prev_joy[i])
                 {
-                    if (i ==1 && fresh_auto == true)
+                    if (i == 1 && fresh_auto == true)
                     {
                         fresh_auto=false;
                         autoCallbackEnabled = false;
@@ -231,6 +232,11 @@
             prev_joy[10]=0; //set abort to off
             prev_joy[11]=0; //set start maneuver to off
             init_= false;
+            
+            for(int i=0; i<=11; i++)
+            {
+                init_joy[i] = prev_joy[i]; // write the prev_joy into init
+            }
         }
 
         for(int i=0; i<=11;i++)
@@ -269,12 +275,20 @@
                 //else statements turn stuff off after the time if there is some lag between nodes
                 if(i==0 && mqs_met <= auto_strm_time)//marine steering for allowed time auto_strm_time
                 {
-                    mqs_ctrl_.cmds[i]=auto_ctrls->auto_ctrls[i];
-                }
-                else if(i==0)
-                {
-                    mqs_ctrl_.cmds[i] = 127; // center jet after auto_strm_time
-                }
+                    // if the current joy is different from init, write the joystick command
+                    if(init_joy[i] != current_joy[i])
+                    {
+                        mqs_ctrl_.cmds[i]=current_joy[i];   
+                    }
+                    else
+                    {
+                        mqs_ctrl_.cmds[i]=auto_ctrls->auto_ctrls[i];
+                    }
+                } 
+                //else if(i==0)
+                //{
+                //    mqs_ctrl_.cmds[i] = 127; // center jet after auto_strm_time
+                //}
                 if (i==1 && mqs_met <= MET_END) //drive motors
                 {
                     mqs_ctrl_.cmds[i]=auto_ctrls->auto_ctrls[i];
@@ -293,12 +307,19 @@
                 }
                 if (i==3 && mqs_met <= auto_strl_time)//land steering
                 {
-                    mqs_ctrl_.cmds[i]=auto_ctrls->auto_ctrls[i];
+                    if(init_joy[i] != current_joy[i])
+                    {
+                        mqs_ctrl_.cmds[i] = current_joy[i];
+                    }
+                    else
+                    {
+                        mqs_ctrl_.cmds[i]=auto_ctrls->auto_ctrls[i];
+                    }
                 }
-                else if(i==3)
-                {
-                    mqs_ctrl_.cmds[i] = 127; // center drive wheels
-                }
+                //else if(i==3)
+                //{
+                //    mqs_ctrl_.cmds[i] = 127; // center drive wheels
+                //}
                 if (i==4) //daq
                 {
                     mqs_ctrl_.cmds[i]=auto_ctrls->auto_ctrls[i];

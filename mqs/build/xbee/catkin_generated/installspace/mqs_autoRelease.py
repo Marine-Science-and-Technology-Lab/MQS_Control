@@ -93,21 +93,21 @@ def mqs_auto_release():
     while MET < rospy.get_param("MET") and not rospy.is_shutdown():
         for i in range(len(auto_ctrls_)):
             if i == 0 and MET < rospy.get_param("auto_marine_steer_time"):
-                auto_ctrls_[i]=rospy.get_param("auto_marine_steer")
-                if auto_ctrls_[i]<0 or auto_ctrls_[i]>255:
-                    auto_ctrls_[i]=127 #center jet
+                auto_ctrls_[i] = rospy.get_param("auto_marine_steer")
+                if auto_ctrls_[i] < 0 or auto_ctrls_[i] > 255:
+                    auto_ctrls_[i] = 127 #center jet
                     print("Invalid range for marine steering!")
                 print("Marine steering set to ", auto_ctrls_[i])
-            elif i == 1 and MET <= rospy.get_param("auto_land_drive_time"): #swap to > for an inbound run [also called delta time]
+            elif i == 1 and MET >= rospy.get_param("auto_land_drive_time"): #swap to > for an inbound run [also called delta time]
                 if MET < auto_land_drive_ramp:
-                    auto_ctrls_[i]=160 #crawl speed for ramp time of 0.2 seconds
+                    auto_ctrls_[i] = 160 #crawl speed for ramp time of 0.2 seconds
                 else:
-                    auto_ctrls_[i]=rospy.get_param("auto_land_drive")   # set auto controls to the specified auto_land_drive parameter value
+                    auto_ctrls_[i] = rospy.get_param("auto_land_drive")   # set auto controls to the specified auto_land_drive parameter value
                 if auto_ctrls_[i] <= 127 or auto_ctrls_[i] > 255: #if the value read from the server was not set or is invalid (including reverse) use a default forward crawl value of 160.
                     auto_ctrls_[i] = 160
                     print("Land drive parameter not set, land drive set to default forward crawl")
                 print("Drive Wheels set to: ", auto_ctrls_[i])
-            elif i == 1 and MET >= rospy.get_param("auto_land_drive_time"): #swap to < for an inbound run [also called delta time]
+            elif i == 1 and MET <= rospy.get_param("auto_land_drive_time"): #swap to < for an inbound run [also called delta time]
                 auto_ctrls_[i] = 127  # stop driving after MET reaches the set parameter time in seconds cause you're in the water babyyyyyyy
                 print("Drive Wheels stopped!")
             elif i == 2:
@@ -117,14 +117,14 @@ def mqs_auto_release():
                     print("Marine drive parameter not set, marine drive set to default 10% throttle")
                 print("Marine Throttle set to:", auto_ctrls_[i])
             elif i == 3 and MET < rospy.get_param("auto_land_steer_time"):
-                auto_ctrls_[i]=rospy.get_param("auto_land_steer") #set steering to commmanded time
-                if auto_ctrls_[i]<0 or auto_ctrls_[i]>255:
+                auto_ctrls_[i] = rospy.get_param("auto_land_steer") #set steering to commmanded time
+                if auto_ctrls_[i] < 0 or auto_ctrls_[i] > 255:
                     auto_ctrls_[i] = 127  #center wheels
                     print("invalid range for land steering!")
                 print("Land steering set to ", auto_ctrls_[i])
             elif i == 3 and MET >= rospy.get_param("auto_land_steer_time"):
                 auto_ctrls_[i] = 127 #recenter wheels after time
-            elif i == 7 and MET >= rospy.get_param("auto_wheels_up_time"):
+            elif i == 7 and MET <= rospy.get_param("auto_wheels_up_time"):  # set to < and change auto_wheels_up_time to -1 to never change wheel state
                 auto_ctrls_[i] = 1
                 print("Raising wheels...")
             elif i == 4:  # daq

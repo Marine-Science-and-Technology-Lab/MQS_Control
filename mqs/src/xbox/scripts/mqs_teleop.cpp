@@ -19,6 +19,7 @@
    int fwd,rev,strl,thl,strm,esc,bp,daq,wrt,cp,rvm,abort,start;
    int fwd_scale, rev_scale,strl_scale,thl_scale,strm_scale;
    int fwd_shift, rev_shift,strl_shift,thl_shift,strm_shift;
+   int fwd_lim;
    //initialize the swtiches off
    bool esc_on=false;
    bool bp_on=false;
@@ -62,6 +63,7 @@
    nh_.param("scale_steer_land", strl_scale,strl_scale);
    nh_.param("scale_throttle", thl_scale,thl_scale);
    nh_.param("scale_forward",fwd_scale,fwd_scale);
+   nh_.param("forward_limit", fwd_lim,fwd_lim);
   //shifting joystick inputs
    nh_.param("shift_steer_marine",strm_shift,strm_shift);
    nh_.param("shift_reverse",rev_shift,rev_shift);
@@ -116,6 +118,16 @@
    {
      ROS_INFO_STREAM("Max throttle set to: " << thl_scale);
    }
+   // set forward drive speed limit
+   if(nh_.getParam("forward_limit", fwd_lim))
+   {
+    fwd_scale = (127 - fwd_lim)/2;
+    fwd_shift = 127 - fwd_scale;
+    nh_.setParam("fwd_scale", fwd_scale); // we reset them on the server as well
+    nh_.setParam("fwd_shift",fwd_shift);
+   }
+
+
    {
     //int() converts float values from joy.msg to byte values
     //strm on channel 0
