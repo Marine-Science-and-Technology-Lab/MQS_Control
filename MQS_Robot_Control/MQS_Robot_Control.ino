@@ -288,14 +288,21 @@ void landDrive()
   Speed limits are an option that can be enabled by changing the range function or
   programming for the ESCs
 
-  Micsecs to wheel RPM:
+  Micsecs to wheel RPM (no load):
   1000  
   1200
   1400
-  1500  0.00
-  1600
-  1800
-  2000
+  1500    0.00
+  1550   49.99
+  1600  252.90
+  1650  417.76
+  1700  453.05
+  1750  509.44
+  1800  529.54
+  1850  541.33
+  1900  548.04
+  1950  562.61
+  2000  572.75
 */
 {
   float maxREV=1450; //limits maximum reversing speed
@@ -304,19 +311,19 @@ void landDrive()
   float deadzone=1500;
 
   //if the value is greater than the maximum allowed reverse set to maxREV
-  if(micsecs[1]<= maxREV)
+  if(micsecs[1] <= maxREV)
   {
-    micsecs[1]=maxREV;
+    micsecs[1] = maxREV;
   }
-  else if(micsecs[1]>1550 && micsecs[1]<=1700) //if some throttle forward is asked use crawl speed
+  else if(micsecs[1] > 1505 && micsecs[1] <= 1550) //if some throttle forward is asked use crawl speed
   {
-    micsecs[1]=crawl;
+    micsecs[1] = crawl;
   }
-  else if(micsecs[1]> 1900) //full gas if above crawl speed
+  else if(micsecs[1] >= maxFWD) //full gas if at or for some reason above full gas
   {
     micsecs[1]=maxFWD;
   }
-  else if(micsecs[1]>1450 && micsecs[1]<=1550) //sets the range for the deadzone
+  else if(micsecs[1]>1450 && micsecs[1]<=1505) //sets the range for the deadzone
   {
     micsecs[1]=deadzone;
   }
