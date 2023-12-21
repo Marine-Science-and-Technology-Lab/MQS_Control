@@ -53,32 +53,39 @@ CMAKE_BINARY_DIR = /home/lab/mqs/build
 # Include the progress variables for this target.
 include xbee/CMakeFiles/xbee_generate_messages_eus.dir/progress.make
 
+xbee/CMakeFiles/xbee_generate_messages_eus: /home/lab/mqs/devel/share/roseus/ros/xbee/msg/script_ctrl.l
 xbee/CMakeFiles/xbee_generate_messages_eus: /home/lab/mqs/devel/share/roseus/ros/xbee/msg/cmd_ctrl.l
 xbee/CMakeFiles/xbee_generate_messages_eus: /home/lab/mqs/devel/share/roseus/ros/xbee/msg/mqs_ctrl.l
 xbee/CMakeFiles/xbee_generate_messages_eus: /home/lab/mqs/devel/share/roseus/ros/xbee/msg/auto_ctrl.l
 xbee/CMakeFiles/xbee_generate_messages_eus: /home/lab/mqs/devel/share/roseus/ros/xbee/manifest.l
 
 
+/home/lab/mqs/devel/share/roseus/ros/xbee/msg/script_ctrl.l: /opt/ros/melodic/lib/geneus/gen_eus.py
+/home/lab/mqs/devel/share/roseus/ros/xbee/msg/script_ctrl.l: /home/lab/mqs/src/xbee/msg/script_ctrl.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating EusLisp code from xbee/script_ctrl.msg"
+	cd /home/lab/mqs/build/xbee && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/lab/mqs/src/xbee/msg/script_ctrl.msg -Ixbee:/home/lab/mqs/src/xbee/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p xbee -o /home/lab/mqs/devel/share/roseus/ros/xbee/msg
+
 /home/lab/mqs/devel/share/roseus/ros/xbee/msg/cmd_ctrl.l: /opt/ros/melodic/lib/geneus/gen_eus.py
 /home/lab/mqs/devel/share/roseus/ros/xbee/msg/cmd_ctrl.l: /home/lab/mqs/src/xbee/msg/cmd_ctrl.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating EusLisp code from xbee/cmd_ctrl.msg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp code from xbee/cmd_ctrl.msg"
 	cd /home/lab/mqs/build/xbee && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/lab/mqs/src/xbee/msg/cmd_ctrl.msg -Ixbee:/home/lab/mqs/src/xbee/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p xbee -o /home/lab/mqs/devel/share/roseus/ros/xbee/msg
 
 /home/lab/mqs/devel/share/roseus/ros/xbee/msg/mqs_ctrl.l: /opt/ros/melodic/lib/geneus/gen_eus.py
 /home/lab/mqs/devel/share/roseus/ros/xbee/msg/mqs_ctrl.l: /home/lab/mqs/src/xbee/msg/mqs_ctrl.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp code from xbee/mqs_ctrl.msg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating EusLisp code from xbee/mqs_ctrl.msg"
 	cd /home/lab/mqs/build/xbee && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/lab/mqs/src/xbee/msg/mqs_ctrl.msg -Ixbee:/home/lab/mqs/src/xbee/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p xbee -o /home/lab/mqs/devel/share/roseus/ros/xbee/msg
 
 /home/lab/mqs/devel/share/roseus/ros/xbee/msg/auto_ctrl.l: /opt/ros/melodic/lib/geneus/gen_eus.py
 /home/lab/mqs/devel/share/roseus/ros/xbee/msg/auto_ctrl.l: /home/lab/mqs/src/xbee/msg/auto_ctrl.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating EusLisp code from xbee/auto_ctrl.msg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating EusLisp code from xbee/auto_ctrl.msg"
 	cd /home/lab/mqs/build/xbee && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/lab/mqs/src/xbee/msg/auto_ctrl.msg -Ixbee:/home/lab/mqs/src/xbee/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p xbee -o /home/lab/mqs/devel/share/roseus/ros/xbee/msg
 
 /home/lab/mqs/devel/share/roseus/ros/xbee/manifest.l: /opt/ros/melodic/lib/geneus/gen_eus.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating EusLisp manifest code for xbee"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Generating EusLisp manifest code for xbee"
 	cd /home/lab/mqs/build/xbee && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/geneus/cmake/../../../lib/geneus/gen_eus.py -m -o /home/lab/mqs/devel/share/roseus/ros/xbee xbee std_msgs
 
 xbee_generate_messages_eus: xbee/CMakeFiles/xbee_generate_messages_eus
+xbee_generate_messages_eus: /home/lab/mqs/devel/share/roseus/ros/xbee/msg/script_ctrl.l
 xbee_generate_messages_eus: /home/lab/mqs/devel/share/roseus/ros/xbee/msg/cmd_ctrl.l
 xbee_generate_messages_eus: /home/lab/mqs/devel/share/roseus/ros/xbee/msg/mqs_ctrl.l
 xbee_generate_messages_eus: /home/lab/mqs/devel/share/roseus/ros/xbee/msg/auto_ctrl.l

@@ -53,27 +53,34 @@ CMAKE_BINARY_DIR = /home/lab/mqs/build
 # Include the progress variables for this target.
 include xbee/CMakeFiles/xbee_generate_messages_nodejs.dir/progress.make
 
+xbee/CMakeFiles/xbee_generate_messages_nodejs: /home/lab/mqs/devel/share/gennodejs/ros/xbee/msg/script_ctrl.js
 xbee/CMakeFiles/xbee_generate_messages_nodejs: /home/lab/mqs/devel/share/gennodejs/ros/xbee/msg/cmd_ctrl.js
 xbee/CMakeFiles/xbee_generate_messages_nodejs: /home/lab/mqs/devel/share/gennodejs/ros/xbee/msg/mqs_ctrl.js
 xbee/CMakeFiles/xbee_generate_messages_nodejs: /home/lab/mqs/devel/share/gennodejs/ros/xbee/msg/auto_ctrl.js
 
 
+/home/lab/mqs/devel/share/gennodejs/ros/xbee/msg/script_ctrl.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
+/home/lab/mqs/devel/share/gennodejs/ros/xbee/msg/script_ctrl.js: /home/lab/mqs/src/xbee/msg/script_ctrl.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Javascript code from xbee/script_ctrl.msg"
+	cd /home/lab/mqs/build/xbee && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/lab/mqs/src/xbee/msg/script_ctrl.msg -Ixbee:/home/lab/mqs/src/xbee/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p xbee -o /home/lab/mqs/devel/share/gennodejs/ros/xbee/msg
+
 /home/lab/mqs/devel/share/gennodejs/ros/xbee/msg/cmd_ctrl.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
 /home/lab/mqs/devel/share/gennodejs/ros/xbee/msg/cmd_ctrl.js: /home/lab/mqs/src/xbee/msg/cmd_ctrl.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Javascript code from xbee/cmd_ctrl.msg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Javascript code from xbee/cmd_ctrl.msg"
 	cd /home/lab/mqs/build/xbee && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/lab/mqs/src/xbee/msg/cmd_ctrl.msg -Ixbee:/home/lab/mqs/src/xbee/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p xbee -o /home/lab/mqs/devel/share/gennodejs/ros/xbee/msg
 
 /home/lab/mqs/devel/share/gennodejs/ros/xbee/msg/mqs_ctrl.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
 /home/lab/mqs/devel/share/gennodejs/ros/xbee/msg/mqs_ctrl.js: /home/lab/mqs/src/xbee/msg/mqs_ctrl.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Javascript code from xbee/mqs_ctrl.msg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Javascript code from xbee/mqs_ctrl.msg"
 	cd /home/lab/mqs/build/xbee && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/lab/mqs/src/xbee/msg/mqs_ctrl.msg -Ixbee:/home/lab/mqs/src/xbee/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p xbee -o /home/lab/mqs/devel/share/gennodejs/ros/xbee/msg
 
 /home/lab/mqs/devel/share/gennodejs/ros/xbee/msg/auto_ctrl.js: /opt/ros/melodic/lib/gennodejs/gen_nodejs.py
 /home/lab/mqs/devel/share/gennodejs/ros/xbee/msg/auto_ctrl.js: /home/lab/mqs/src/xbee/msg/auto_ctrl.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Javascript code from xbee/auto_ctrl.msg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Javascript code from xbee/auto_ctrl.msg"
 	cd /home/lab/mqs/build/xbee && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gennodejs/cmake/../../../lib/gennodejs/gen_nodejs.py /home/lab/mqs/src/xbee/msg/auto_ctrl.msg -Ixbee:/home/lab/mqs/src/xbee/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p xbee -o /home/lab/mqs/devel/share/gennodejs/ros/xbee/msg
 
 xbee_generate_messages_nodejs: xbee/CMakeFiles/xbee_generate_messages_nodejs
+xbee_generate_messages_nodejs: /home/lab/mqs/devel/share/gennodejs/ros/xbee/msg/script_ctrl.js
 xbee_generate_messages_nodejs: /home/lab/mqs/devel/share/gennodejs/ros/xbee/msg/cmd_ctrl.js
 xbee_generate_messages_nodejs: /home/lab/mqs/devel/share/gennodejs/ros/xbee/msg/mqs_ctrl.js
 xbee_generate_messages_nodejs: /home/lab/mqs/devel/share/gennodejs/ros/xbee/msg/auto_ctrl.js

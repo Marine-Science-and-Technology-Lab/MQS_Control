@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/xbee_generate_messages_py"
+  "/home/lab/mqs/devel/lib/python2.7/dist-packages/xbee/msg/_script_ctrl.py"
   "/home/lab/mqs/devel/lib/python2.7/dist-packages/xbee/msg/_cmd_ctrl.py"
   "/home/lab/mqs/devel/lib/python2.7/dist-packages/xbee/msg/_mqs_ctrl.py"
   "/home/lab/mqs/devel/lib/python2.7/dist-packages/xbee/msg/_auto_ctrl.py"

@@ -39,7 +39,7 @@
 	<!-- auto Parameters -->
 	
 	<!-- Mission Time -->
-	<param name="MET" value="10" type="int" /> <!--time duration of the mission elapsed time-->
+	<param name="MET" value="10" type="double" /> <!--time duration of the mission elapsed time-->
 	<!-- Marine Parameters -->
     <param name="auto_marine_drive" value="0" type="int"/> <!-- auto marine drive, defuatl set to 26 (<10%)-->
 	<param name="auto_marine_steer" value="127" type="int" /> <!-- auto marine steering command, defualt set to center-->

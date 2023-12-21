@@ -52,7 +52,7 @@
 
     HandshakeMQS::HandshakeMQS():
     
-    handshakemqs(1) //need this to get it to compile?
+    handshakemqs(1) //need this to get it to compile
     {
         //publish MQS_CTRL to xbee
         mqs_ctrl_pub=nh_.advertise<xbee::mqs_ctrl>("cmds",2);
@@ -79,12 +79,13 @@
         mqs_ctrl_.cmds[10]=0; //set abort to off
         mqs_ctrl_.cmds[11]=0; //set start manuever to off
 
-        nh_.param("MET",MET_END,MET_END);
+        nh_.param("MET",MET_END,MET_END); // grab initial MET
         
     }
 
     void HandshakeMQS::met(const std_msgs::Float32::ConstPtr& MET)
     {
+        nh_.param("MET",MET_END,MET_END); // need this here in case MET changes on the parameter server
         mqs_met=MET->data;
         ROS_INFO_STREAM("MET: \n" << mqs_met);
     }

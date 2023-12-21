@@ -42,6 +42,7 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
     "/home/lab/mqs/src/xbee/msg/cmd_ctrl.msg"
     "/home/lab/mqs/src/xbee/msg/auto_ctrl.msg"
     "/home/lab/mqs/src/xbee/msg/mqs_ctrl.msg"
+    "/home/lab/mqs/src/xbee/msg/script_ctrl.msg"
     )
 endif()
 
@@ -106,5 +107,17 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/xbee" TYPE PROGRAM FILES "/home/lab/mqs/build/xbee/catkin_generated/installspace/mqs_maneuver.py")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/xbee" TYPE PROGRAM FILES "/home/lab/mqs/build/xbee/catkin_generated/installspace/mqs_maneuver_from_script.py")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/xbee" TYPE PROGRAM FILES "/home/lab/mqs/build/xbee/catkin_generated/installspace/mqs_rw_csv_script.py")
+endif()
+
+if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/xbee" TYPE PROGRAM FILES "/home/lab/mqs/build/xbee/catkin_generated/installspace/mqs_read_csv_params.py")
 endif()
 

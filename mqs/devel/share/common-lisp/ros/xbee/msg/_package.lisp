@@ -7,5 +7,7 @@
    "CMD_CTRL"
    "<MQS_CTRL>"
    "MQS_CTRL"
+   "<SCRIPT_CTRL>"
+   "SCRIPT_CTRL"
   ))
 

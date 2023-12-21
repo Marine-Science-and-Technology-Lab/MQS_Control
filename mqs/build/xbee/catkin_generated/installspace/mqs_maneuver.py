@@ -309,6 +309,7 @@ if __name__ == "__main__":
     init_ = True  # bool for setting initial loop
 
     # subscriber only needs to be set up once
+    # subscribe to whole message, only look at start value
     rospy.Subscriber("cmd_ctrls", numpy_msg(cmd_ctrl), maneuver_node_start)
 
     # create rate outside of loop
@@ -318,7 +319,7 @@ if __name__ == "__main__":
             msg = 0
             prev_msg = msg
             init_ = False
-        # subscribe to whole message, only look at start value
+
 
         #rospy.spin()
         rate.sleep()

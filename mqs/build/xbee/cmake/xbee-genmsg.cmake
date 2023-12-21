@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(STATUS "xbee: 3 messages, 0 services")
+message(STATUS "xbee: 4 messages, 0 services")
 
 set(MSG_I_FLAGS "-Ixbee:/home/lab/mqs/src/xbee/msg;-Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg")
 
@@ -17,14 +17,19 @@ add_custom_target(xbee_generate_messages ALL)
 
 
 
-get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/cmd_ctrl.msg" NAME_WE)
-add_custom_target(_xbee_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "xbee" "/home/lab/mqs/src/xbee/msg/cmd_ctrl.msg" ""
-)
-
 get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/mqs_ctrl.msg" NAME_WE)
 add_custom_target(_xbee_generate_messages_check_deps_${_filename}
   COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "xbee" "/home/lab/mqs/src/xbee/msg/mqs_ctrl.msg" ""
+)
+
+get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/script_ctrl.msg" NAME_WE)
+add_custom_target(_xbee_generate_messages_check_deps_${_filename}
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "xbee" "/home/lab/mqs/src/xbee/msg/script_ctrl.msg" ""
+)
+
+get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/cmd_ctrl.msg" NAME_WE)
+add_custom_target(_xbee_generate_messages_check_deps_${_filename}
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "xbee" "/home/lab/mqs/src/xbee/msg/cmd_ctrl.msg" ""
 )
 
 get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/auto_ctrl.msg" NAME_WE)
@@ -38,6 +43,12 @@ add_custom_target(_xbee_generate_messages_check_deps_${_filename}
 
 ### Section generating for lang: gencpp
 ### Generating Messages
+_generate_msg_cpp(xbee
+  "/home/lab/mqs/src/xbee/msg/script_ctrl.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/xbee
+)
 _generate_msg_cpp(xbee
   "/home/lab/mqs/src/xbee/msg/cmd_ctrl.msg"
   "${MSG_I_FLAGS}"
@@ -71,9 +82,11 @@ add_custom_target(xbee_generate_messages_cpp
 add_dependencies(xbee_generate_messages xbee_generate_messages_cpp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/cmd_ctrl.msg" NAME_WE)
-add_dependencies(xbee_generate_messages_cpp _xbee_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/mqs_ctrl.msg" NAME_WE)
+add_dependencies(xbee_generate_messages_cpp _xbee_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/script_ctrl.msg" NAME_WE)
+add_dependencies(xbee_generate_messages_cpp _xbee_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/cmd_ctrl.msg" NAME_WE)
 add_dependencies(xbee_generate_messages_cpp _xbee_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/auto_ctrl.msg" NAME_WE)
 add_dependencies(xbee_generate_messages_cpp _xbee_generate_messages_check_deps_${_filename})
@@ -87,6 +100,12 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS xbee_generate_messages_cpp)
 
 ### Section generating for lang: geneus
 ### Generating Messages
+_generate_msg_eus(xbee
+  "/home/lab/mqs/src/xbee/msg/script_ctrl.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/xbee
+)
 _generate_msg_eus(xbee
   "/home/lab/mqs/src/xbee/msg/cmd_ctrl.msg"
   "${MSG_I_FLAGS}"
@@ -120,9 +139,11 @@ add_custom_target(xbee_generate_messages_eus
 add_dependencies(xbee_generate_messages xbee_generate_messages_eus)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/cmd_ctrl.msg" NAME_WE)
-add_dependencies(xbee_generate_messages_eus _xbee_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/mqs_ctrl.msg" NAME_WE)
+add_dependencies(xbee_generate_messages_eus _xbee_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/script_ctrl.msg" NAME_WE)
+add_dependencies(xbee_generate_messages_eus _xbee_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/cmd_ctrl.msg" NAME_WE)
 add_dependencies(xbee_generate_messages_eus _xbee_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/auto_ctrl.msg" NAME_WE)
 add_dependencies(xbee_generate_messages_eus _xbee_generate_messages_check_deps_${_filename})
@@ -136,6 +157,12 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS xbee_generate_messages_eus)
 
 ### Section generating for lang: genlisp
 ### Generating Messages
+_generate_msg_lisp(xbee
+  "/home/lab/mqs/src/xbee/msg/script_ctrl.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/xbee
+)
 _generate_msg_lisp(xbee
   "/home/lab/mqs/src/xbee/msg/cmd_ctrl.msg"
   "${MSG_I_FLAGS}"
@@ -169,9 +196,11 @@ add_custom_target(xbee_generate_messages_lisp
 add_dependencies(xbee_generate_messages xbee_generate_messages_lisp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/cmd_ctrl.msg" NAME_WE)
-add_dependencies(xbee_generate_messages_lisp _xbee_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/mqs_ctrl.msg" NAME_WE)
+add_dependencies(xbee_generate_messages_lisp _xbee_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/script_ctrl.msg" NAME_WE)
+add_dependencies(xbee_generate_messages_lisp _xbee_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/cmd_ctrl.msg" NAME_WE)
 add_dependencies(xbee_generate_messages_lisp _xbee_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/auto_ctrl.msg" NAME_WE)
 add_dependencies(xbee_generate_messages_lisp _xbee_generate_messages_check_deps_${_filename})
@@ -185,6 +214,12 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS xbee_generate_messages_lisp)
 
 ### Section generating for lang: gennodejs
 ### Generating Messages
+_generate_msg_nodejs(xbee
+  "/home/lab/mqs/src/xbee/msg/script_ctrl.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/xbee
+)
 _generate_msg_nodejs(xbee
   "/home/lab/mqs/src/xbee/msg/cmd_ctrl.msg"
   "${MSG_I_FLAGS}"
@@ -218,9 +253,11 @@ add_custom_target(xbee_generate_messages_nodejs
 add_dependencies(xbee_generate_messages xbee_generate_messages_nodejs)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/cmd_ctrl.msg" NAME_WE)
-add_dependencies(xbee_generate_messages_nodejs _xbee_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/mqs_ctrl.msg" NAME_WE)
+add_dependencies(xbee_generate_messages_nodejs _xbee_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/script_ctrl.msg" NAME_WE)
+add_dependencies(xbee_generate_messages_nodejs _xbee_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/cmd_ctrl.msg" NAME_WE)
 add_dependencies(xbee_generate_messages_nodejs _xbee_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/auto_ctrl.msg" NAME_WE)
 add_dependencies(xbee_generate_messages_nodejs _xbee_generate_messages_check_deps_${_filename})
@@ -234,6 +271,12 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS xbee_generate_messages_nodejs)
 
 ### Section generating for lang: genpy
 ### Generating Messages
+_generate_msg_py(xbee
+  "/home/lab/mqs/src/xbee/msg/script_ctrl.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/xbee
+)
 _generate_msg_py(xbee
   "/home/lab/mqs/src/xbee/msg/cmd_ctrl.msg"
   "${MSG_I_FLAGS}"
@@ -267,9 +310,11 @@ add_custom_target(xbee_generate_messages_py
 add_dependencies(xbee_generate_messages xbee_generate_messages_py)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/cmd_ctrl.msg" NAME_WE)
-add_dependencies(xbee_generate_messages_py _xbee_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/mqs_ctrl.msg" NAME_WE)
+add_dependencies(xbee_generate_messages_py _xbee_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/script_ctrl.msg" NAME_WE)
+add_dependencies(xbee_generate_messages_py _xbee_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/cmd_ctrl.msg" NAME_WE)
 add_dependencies(xbee_generate_messages_py _xbee_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/lab/mqs/src/xbee/msg/auto_ctrl.msg" NAME_WE)
 add_dependencies(xbee_generate_messages_py _xbee_generate_messages_check_deps_${_filename})

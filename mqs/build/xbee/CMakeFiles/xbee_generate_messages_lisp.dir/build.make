@@ -53,27 +53,34 @@ CMAKE_BINARY_DIR = /home/lab/mqs/build
 # Include the progress variables for this target.
 include xbee/CMakeFiles/xbee_generate_messages_lisp.dir/progress.make
 
+xbee/CMakeFiles/xbee_generate_messages_lisp: /home/lab/mqs/devel/share/common-lisp/ros/xbee/msg/script_ctrl.lisp
 xbee/CMakeFiles/xbee_generate_messages_lisp: /home/lab/mqs/devel/share/common-lisp/ros/xbee/msg/cmd_ctrl.lisp
 xbee/CMakeFiles/xbee_generate_messages_lisp: /home/lab/mqs/devel/share/common-lisp/ros/xbee/msg/mqs_ctrl.lisp
 xbee/CMakeFiles/xbee_generate_messages_lisp: /home/lab/mqs/devel/share/common-lisp/ros/xbee/msg/auto_ctrl.lisp
 
 
+/home/lab/mqs/devel/share/common-lisp/ros/xbee/msg/script_ctrl.lisp: /opt/ros/melodic/lib/genlisp/gen_lisp.py
+/home/lab/mqs/devel/share/common-lisp/ros/xbee/msg/script_ctrl.lisp: /home/lab/mqs/src/xbee/msg/script_ctrl.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Lisp code from xbee/script_ctrl.msg"
+	cd /home/lab/mqs/build/xbee && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/lab/mqs/src/xbee/msg/script_ctrl.msg -Ixbee:/home/lab/mqs/src/xbee/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p xbee -o /home/lab/mqs/devel/share/common-lisp/ros/xbee/msg
+
 /home/lab/mqs/devel/share/common-lisp/ros/xbee/msg/cmd_ctrl.lisp: /opt/ros/melodic/lib/genlisp/gen_lisp.py
 /home/lab/mqs/devel/share/common-lisp/ros/xbee/msg/cmd_ctrl.lisp: /home/lab/mqs/src/xbee/msg/cmd_ctrl.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Lisp code from xbee/cmd_ctrl.msg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Lisp code from xbee/cmd_ctrl.msg"
 	cd /home/lab/mqs/build/xbee && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/lab/mqs/src/xbee/msg/cmd_ctrl.msg -Ixbee:/home/lab/mqs/src/xbee/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p xbee -o /home/lab/mqs/devel/share/common-lisp/ros/xbee/msg
 
 /home/lab/mqs/devel/share/common-lisp/ros/xbee/msg/mqs_ctrl.lisp: /opt/ros/melodic/lib/genlisp/gen_lisp.py
 /home/lab/mqs/devel/share/common-lisp/ros/xbee/msg/mqs_ctrl.lisp: /home/lab/mqs/src/xbee/msg/mqs_ctrl.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Lisp code from xbee/mqs_ctrl.msg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Lisp code from xbee/mqs_ctrl.msg"
 	cd /home/lab/mqs/build/xbee && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/lab/mqs/src/xbee/msg/mqs_ctrl.msg -Ixbee:/home/lab/mqs/src/xbee/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p xbee -o /home/lab/mqs/devel/share/common-lisp/ros/xbee/msg
 
 /home/lab/mqs/devel/share/common-lisp/ros/xbee/msg/auto_ctrl.lisp: /opt/ros/melodic/lib/genlisp/gen_lisp.py
 /home/lab/mqs/devel/share/common-lisp/ros/xbee/msg/auto_ctrl.lisp: /home/lab/mqs/src/xbee/msg/auto_ctrl.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating Lisp code from xbee/auto_ctrl.msg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating Lisp code from xbee/auto_ctrl.msg"
 	cd /home/lab/mqs/build/xbee && ../catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/lab/mqs/src/xbee/msg/auto_ctrl.msg -Ixbee:/home/lab/mqs/src/xbee/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p xbee -o /home/lab/mqs/devel/share/common-lisp/ros/xbee/msg
 
 xbee_generate_messages_lisp: xbee/CMakeFiles/xbee_generate_messages_lisp
+xbee_generate_messages_lisp: /home/lab/mqs/devel/share/common-lisp/ros/xbee/msg/script_ctrl.lisp
 xbee_generate_messages_lisp: /home/lab/mqs/devel/share/common-lisp/ros/xbee/msg/cmd_ctrl.lisp
 xbee_generate_messages_lisp: /home/lab/mqs/devel/share/common-lisp/ros/xbee/msg/mqs_ctrl.lisp
 xbee_generate_messages_lisp: /home/lab/mqs/devel/share/common-lisp/ros/xbee/msg/auto_ctrl.lisp

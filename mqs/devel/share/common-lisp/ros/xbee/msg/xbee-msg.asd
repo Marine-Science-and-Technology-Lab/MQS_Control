@@ -10,4 +10,6 @@
     (:file "_package_cmd_ctrl" :depends-on ("_package"))
     (:file "mqs_ctrl" :depends-on ("_package_mqs_ctrl"))
     (:file "_package_mqs_ctrl" :depends-on ("_package"))
+    (:file "script_ctrl" :depends-on ("_package_script_ctrl"))
+    (:file "_package_script_ctrl" :depends-on ("_package"))
   ))

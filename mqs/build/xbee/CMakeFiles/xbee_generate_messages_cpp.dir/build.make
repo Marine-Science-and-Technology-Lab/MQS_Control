@@ -53,30 +53,38 @@ CMAKE_BINARY_DIR = /home/lab/mqs/build
 # Include the progress variables for this target.
 include xbee/CMakeFiles/xbee_generate_messages_cpp.dir/progress.make
 
+xbee/CMakeFiles/xbee_generate_messages_cpp: /home/lab/mqs/devel/include/xbee/script_ctrl.h
 xbee/CMakeFiles/xbee_generate_messages_cpp: /home/lab/mqs/devel/include/xbee/cmd_ctrl.h
 xbee/CMakeFiles/xbee_generate_messages_cpp: /home/lab/mqs/devel/include/xbee/mqs_ctrl.h
 xbee/CMakeFiles/xbee_generate_messages_cpp: /home/lab/mqs/devel/include/xbee/auto_ctrl.h
 
 
+/home/lab/mqs/devel/include/xbee/script_ctrl.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
+/home/lab/mqs/devel/include/xbee/script_ctrl.h: /home/lab/mqs/src/xbee/msg/script_ctrl.msg
+/home/lab/mqs/devel/include/xbee/script_ctrl.h: /opt/ros/melodic/share/gencpp/msg.h.template
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code from xbee/script_ctrl.msg"
+	cd /home/lab/mqs/src/xbee && /home/lab/mqs/build/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/lab/mqs/src/xbee/msg/script_ctrl.msg -Ixbee:/home/lab/mqs/src/xbee/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p xbee -o /home/lab/mqs/devel/include/xbee -e /opt/ros/melodic/share/gencpp/cmake/..
+
 /home/lab/mqs/devel/include/xbee/cmd_ctrl.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
 /home/lab/mqs/devel/include/xbee/cmd_ctrl.h: /home/lab/mqs/src/xbee/msg/cmd_ctrl.msg
 /home/lab/mqs/devel/include/xbee/cmd_ctrl.h: /opt/ros/melodic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating C++ code from xbee/cmd_ctrl.msg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating C++ code from xbee/cmd_ctrl.msg"
 	cd /home/lab/mqs/src/xbee && /home/lab/mqs/build/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/lab/mqs/src/xbee/msg/cmd_ctrl.msg -Ixbee:/home/lab/mqs/src/xbee/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p xbee -o /home/lab/mqs/devel/include/xbee -e /opt/ros/melodic/share/gencpp/cmake/..
 
 /home/lab/mqs/devel/include/xbee/mqs_ctrl.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
 /home/lab/mqs/devel/include/xbee/mqs_ctrl.h: /home/lab/mqs/src/xbee/msg/mqs_ctrl.msg
 /home/lab/mqs/devel/include/xbee/mqs_ctrl.h: /opt/ros/melodic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating C++ code from xbee/mqs_ctrl.msg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating C++ code from xbee/mqs_ctrl.msg"
 	cd /home/lab/mqs/src/xbee && /home/lab/mqs/build/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/lab/mqs/src/xbee/msg/mqs_ctrl.msg -Ixbee:/home/lab/mqs/src/xbee/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p xbee -o /home/lab/mqs/devel/include/xbee -e /opt/ros/melodic/share/gencpp/cmake/..
 
 /home/lab/mqs/devel/include/xbee/auto_ctrl.h: /opt/ros/melodic/lib/gencpp/gen_cpp.py
 /home/lab/mqs/devel/include/xbee/auto_ctrl.h: /home/lab/mqs/src/xbee/msg/auto_ctrl.msg
 /home/lab/mqs/devel/include/xbee/auto_ctrl.h: /opt/ros/melodic/share/gencpp/msg.h.template
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Generating C++ code from xbee/auto_ctrl.msg"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/lab/mqs/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Generating C++ code from xbee/auto_ctrl.msg"
 	cd /home/lab/mqs/src/xbee && /home/lab/mqs/build/catkin_generated/env_cached.sh /usr/bin/python2 /opt/ros/melodic/share/gencpp/cmake/../../../lib/gencpp/gen_cpp.py /home/lab/mqs/src/xbee/msg/auto_ctrl.msg -Ixbee:/home/lab/mqs/src/xbee/msg -Istd_msgs:/opt/ros/melodic/share/std_msgs/cmake/../msg -p xbee -o /home/lab/mqs/devel/include/xbee -e /opt/ros/melodic/share/gencpp/cmake/..
 
 xbee_generate_messages_cpp: xbee/CMakeFiles/xbee_generate_messages_cpp
+xbee_generate_messages_cpp: /home/lab/mqs/devel/include/xbee/script_ctrl.h
 xbee_generate_messages_cpp: /home/lab/mqs/devel/include/xbee/cmd_ctrl.h
 xbee_generate_messages_cpp: /home/lab/mqs/devel/include/xbee/mqs_ctrl.h
 xbee_generate_messages_cpp: /home/lab/mqs/devel/include/xbee/auto_ctrl.h

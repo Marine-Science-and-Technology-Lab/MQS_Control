@@ -97,7 +97,7 @@
    op_joy.wrt=joy->buttons[wrt]; //momentary
    op_joy.cp=joy->buttons[cp]; //switch
    op_joy.rvm=joy->buttons[rvm]; //momentary
-   op_joy.start=joy->axes[start]; //switch
+   op_joy.start=joy->axes[start]; //switch for maneuver
    op_joy.abort=joy->buttons[abort]; //switch, permanent abort for pc operation
 
   //initializes previous value first time 

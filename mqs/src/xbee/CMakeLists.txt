@@ -53,6 +53,7 @@ find_package(catkin REQUIRED COMPONENTS
    cmd_ctrl.msg
    auto_ctrl.msg
    mqs_ctrl.msg
+   script_ctrl.msg
  )
 
 ## Generate services in the 'srv' folder
@@ -164,7 +165,8 @@ add_dependencies(mqs_handshake ${catkin_EXPORTED_TARGETS})
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
  catkin_install_python(PROGRAMS
-   scripts/mqs_xbee.py scripts/XBee.py scripts/mqs_autoRelease.py scripts/mqs_maneuver.py
+   scripts/mqs_xbee.py scripts/XBee.py scripts/mqs_autoRelease.py scripts/mqs_maneuver.py 
+   scripts/mqs_maneuver_from_script.py scripts/mqs_rw_csv_script.py scripts/mqs_read_csv_params.py
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
 

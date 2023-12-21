@@ -935,19 +935,6 @@ actionlib_generate_messages_py/fast:
 .PHONY : actionlib_generate_messages_py/fast
 
 #=============================================================================
-# Target rules for targets named xbee_gencpp
-
-# Build rule for target.
-xbee_gencpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 xbee_gencpp
-.PHONY : xbee_gencpp
-
-# fast build rule for target.
-xbee_gencpp/fast:
-	$(MAKE) -f xbee/CMakeFiles/xbee_gencpp.dir/build.make xbee/CMakeFiles/xbee_gencpp.dir/build
-.PHONY : xbee_gencpp/fast
-
-#=============================================================================
 # Target rules for targets named xbee_generate_messages_cpp
 
 # Build rule for target.
@@ -961,17 +948,17 @@ xbee_generate_messages_cpp/fast:
 .PHONY : xbee_generate_messages_cpp/fast
 
 #=============================================================================
-# Target rules for targets named xbee_generate_messages_nodejs
+# Target rules for targets named xbee_gencpp
 
 # Build rule for target.
-xbee_generate_messages_nodejs: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 xbee_generate_messages_nodejs
-.PHONY : xbee_generate_messages_nodejs
+xbee_gencpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 xbee_gencpp
+.PHONY : xbee_gencpp
 
 # fast build rule for target.
-xbee_generate_messages_nodejs/fast:
-	$(MAKE) -f xbee/CMakeFiles/xbee_generate_messages_nodejs.dir/build.make xbee/CMakeFiles/xbee_generate_messages_nodejs.dir/build
-.PHONY : xbee_generate_messages_nodejs/fast
+xbee_gencpp/fast:
+	$(MAKE) -f xbee/CMakeFiles/xbee_gencpp.dir/build.make xbee/CMakeFiles/xbee_gencpp.dir/build
+.PHONY : xbee_gencpp/fast
 
 #=============================================================================
 # Target rules for targets named _xbee_generate_messages_check_deps_auto_ctrl
@@ -998,6 +985,32 @@ xbee_geneus: cmake_check_build_system
 xbee_geneus/fast:
 	$(MAKE) -f xbee/CMakeFiles/xbee_geneus.dir/build.make xbee/CMakeFiles/xbee_geneus.dir/build
 .PHONY : xbee_geneus/fast
+
+#=============================================================================
+# Target rules for targets named xbee_generate_messages_nodejs
+
+# Build rule for target.
+xbee_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 xbee_generate_messages_nodejs
+.PHONY : xbee_generate_messages_nodejs
+
+# fast build rule for target.
+xbee_generate_messages_nodejs/fast:
+	$(MAKE) -f xbee/CMakeFiles/xbee_generate_messages_nodejs.dir/build.make xbee/CMakeFiles/xbee_generate_messages_nodejs.dir/build
+.PHONY : xbee_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named _xbee_generate_messages_check_deps_script_ctrl
+
+# Build rule for target.
+_xbee_generate_messages_check_deps_script_ctrl: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _xbee_generate_messages_check_deps_script_ctrl
+.PHONY : _xbee_generate_messages_check_deps_script_ctrl
+
+# fast build rule for target.
+_xbee_generate_messages_check_deps_script_ctrl/fast:
+	$(MAKE) -f xbee/CMakeFiles/_xbee_generate_messages_check_deps_script_ctrl.dir/build.make xbee/CMakeFiles/_xbee_generate_messages_check_deps_script_ctrl.dir/build
+.PHONY : _xbee_generate_messages_check_deps_script_ctrl/fast
 
 #=============================================================================
 # Target rules for targets named xbee_generate_messages_eus
@@ -1039,6 +1052,19 @@ xbee_generate_messages_py/fast:
 .PHONY : xbee_generate_messages_py/fast
 
 #=============================================================================
+# Target rules for targets named _xbee_generate_messages_check_deps_cmd_ctrl
+
+# Build rule for target.
+_xbee_generate_messages_check_deps_cmd_ctrl: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _xbee_generate_messages_check_deps_cmd_ctrl
+.PHONY : _xbee_generate_messages_check_deps_cmd_ctrl
+
+# fast build rule for target.
+_xbee_generate_messages_check_deps_cmd_ctrl/fast:
+	$(MAKE) -f xbee/CMakeFiles/_xbee_generate_messages_check_deps_cmd_ctrl.dir/build.make xbee/CMakeFiles/_xbee_generate_messages_check_deps_cmd_ctrl.dir/build
+.PHONY : _xbee_generate_messages_check_deps_cmd_ctrl/fast
+
+#=============================================================================
 # Target rules for targets named _xbee_generate_messages_check_deps_mqs_ctrl
 
 # Build rule for target.
@@ -1063,19 +1089,6 @@ xbee_generate_messages: cmake_check_build_system
 xbee_generate_messages/fast:
 	$(MAKE) -f xbee/CMakeFiles/xbee_generate_messages.dir/build.make xbee/CMakeFiles/xbee_generate_messages.dir/build
 .PHONY : xbee_generate_messages/fast
-
-#=============================================================================
-# Target rules for targets named _xbee_generate_messages_check_deps_cmd_ctrl
-
-# Build rule for target.
-_xbee_generate_messages_check_deps_cmd_ctrl: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 _xbee_generate_messages_check_deps_cmd_ctrl
-.PHONY : _xbee_generate_messages_check_deps_cmd_ctrl
-
-# fast build rule for target.
-_xbee_generate_messages_check_deps_cmd_ctrl/fast:
-	$(MAKE) -f xbee/CMakeFiles/_xbee_generate_messages_check_deps_cmd_ctrl.dir/build.make xbee/CMakeFiles/_xbee_generate_messages_check_deps_cmd_ctrl.dir/build
-.PHONY : _xbee_generate_messages_check_deps_cmd_ctrl/fast
 
 #=============================================================================
 # Target rules for targets named xbee_genlisp
@@ -1487,17 +1500,18 @@ help:
 	@echo "... mocap_qualisys_driver"
 	@echo "... actionlib_generate_messages_nodejs"
 	@echo "... actionlib_generate_messages_py"
-	@echo "... xbee_gencpp"
 	@echo "... xbee_generate_messages_cpp"
-	@echo "... xbee_generate_messages_nodejs"
+	@echo "... xbee_gencpp"
 	@echo "... _xbee_generate_messages_check_deps_auto_ctrl"
 	@echo "... xbee_geneus"
+	@echo "... xbee_generate_messages_nodejs"
+	@echo "... _xbee_generate_messages_check_deps_script_ctrl"
 	@echo "... xbee_generate_messages_eus"
 	@echo "... xbee_generate_messages_lisp"
 	@echo "... xbee_generate_messages_py"
+	@echo "... _xbee_generate_messages_check_deps_cmd_ctrl"
 	@echo "... _xbee_generate_messages_check_deps_mqs_ctrl"
 	@echo "... xbee_generate_messages"
-	@echo "... _xbee_generate_messages_check_deps_cmd_ctrl"
 	@echo "... xbee_genlisp"
 	@echo "... xbee_gennodejs"
 	@echo "... xbee_genpy"
