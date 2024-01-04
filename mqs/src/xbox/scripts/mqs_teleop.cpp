@@ -27,9 +27,13 @@
    bool cp_on=false;
    bool wrt_on=false;
    bool start_on=false;
-   int prev_[6]={0,0,0,0,0};
+   bool abort_on=false;
+   int prev_[6]={0,0,0,0,0,0};
    bool init_=true; 
    ros::Publisher cmd_ctrl_pub;
+   ros::Publisher marine_joy_pub;
+   ros::Publisher land_joy_pub;
+   ros::Publisher op_joy_pub;
    ros::Subscriber joy_sub_;
  
  };
@@ -37,17 +41,17 @@
 
  TeleopMQS::TeleopMQS():
   strm(0), //marine steering on LS <->
-  rev(5), //land rev on LT
-  strl(2), //land steer on RS <->  
-  thl(3), //marine throttle on RS ^ only
-  fwd(4), //land fwd on RT
+  rev(2), //land rev on LT , was (5)
+  strl(3), //land steer on RS <->, was (2)  
+  thl(4), //marine throttle on RS ^ only, was (3)
+  fwd(5), //land fwd on RT, was (4)
   esc(0), //esc binary on A
   bp(1), //bilge pump binary on B
-  daq(3), //daq binary on X
-  cp(4), //cooling pump binary on Y
-  wrt(6), //wheel retraction binary on LB
-  rvm(7), //marine reverse on RB
-  abort(12), //abort to RC transmitter on Xbox button
+  daq(2), //daq binary on X
+  cp(3), //cooling pump binary on Y
+  wrt(4), //wheel retraction binary on LB
+  rvm(5), //marine reverse on RB
+  abort(8), //abort to RC transmitter on Xbox button
   start(7) //start queued manuever
  {
    //setting up parameters for joystick, sets defualt to
@@ -74,6 +78,12 @@
 
    //publish message to topic cmd_ctrl, queue size is 2 messages
    cmd_ctrl_pub = nh_.advertise<xbee::cmd_ctrl>("cmd_ctrls", 2);
+
+   //publish each suboperation for force-feedback node
+   marine_joy_pub = nh_.advertise<xbox::marine>("marine",10);
+   land_joy_pub = nh_.advertise<xbox::land>("land",10);
+   op_joy_pub = nh_.advertise<xbox::op>("op",10);
+
  
  
    joy_sub_ = nh_.subscribe<sensor_msgs::Joy>("joy", 10, &TeleopMQS::joyCallback, this);
@@ -242,8 +252,25 @@
 
     //rvm on channel 9
     cmd_ctrl_.cmd_ctrls[9]=op_joy.rvm;
+
     //abort to RC transmitter on channel 10
-    cmd_ctrl_.cmd_ctrls[10]=op_joy.abort; //If this is true joystick operation will be switched off on the arduino
+    if(op_joy.abort == 1)
+    {
+      abort_on = true;
+      cmd_ctrl_.cmd_ctrls[10]=op_joy.abort; //If this is true joystick operation will be switched off to the arduino
+      ROS_WARN("Joystick Interupted by ABORT\n");
+    }
+    if(abort_on)
+    {
+      cmd_ctrl_.cmd_ctrls[10]= 1; // hold on
+      
+      ROS_WARN("Control on R/C\n");
+    }
+    else
+    {
+      cmd_ctrl_.cmd_ctrls[10]= 0; // keep off
+    }
+    
     
     //on-off switch for start manuever
     if (op_joy.start==1 && prev_[5]==0) //if start button is pressed the first time turn it on
@@ -253,7 +280,7 @@
     }
     if (start_on==true)
     {
-      cmd_ctrl_.cmd_ctrls[11]=1; //hold wrt on
+      cmd_ctrl_.cmd_ctrls[11]=1; //hold on
     }
     else
     {
@@ -266,6 +293,7 @@
     cmd_ctrl_.cmd_ctrls[15]=0;
 
    }
+   // publish the built message
    cmd_ctrl_pub.publish(cmd_ctrl_);
 
    
@@ -275,6 +303,11 @@
    prev_[3]=op_joy.cp;
    prev_[4]=op_joy.wrt;
    prev_[5]=op_joy.start;
+
+   // publish the suboperation messages
+   marine_joy_pub.publish(marine_joy);
+   land_joy_pub.publish(land_joy);
+   op_joy_pub.publish(op_joy);
 
   }
  

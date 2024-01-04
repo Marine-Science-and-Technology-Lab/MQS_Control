@@ -141,6 +141,10 @@ add_executable(mqs_teleop scripts/mqs_teleop.cpp)
 target_link_libraries(mqs_teleop ${catkin_LIBRARIES})
 add_dependencies(mqs_teleop xbox_generate_messages_cpp)
 
+add_executable(mqs_teleop_feedback scripts/mqs_teleop_feedback.cpp)
+target_link_libraries(mqs_teleop_feedback ${catkin_LIBRARIES})
+add_dependencies(mqs_teleop_feedback xbox_generate_messages_cpp)
+
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the

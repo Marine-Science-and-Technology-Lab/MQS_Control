@@ -78,17 +78,6 @@ list_install_components/fast: list_install_components
 
 .PHONY : list_install_components/fast
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -111,6 +100,17 @@ install/strip/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
 	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
 
 # Special rule for the target test
 test:
@@ -241,6 +241,21 @@ xbox_gencpp: xbox/CMakeFiles/xbox_gencpp.dir/rule
 xbox_gencpp/fast:
 	cd /home/lab/mqs/build && $(MAKE) -f xbox/CMakeFiles/xbox_gencpp.dir/build.make xbox/CMakeFiles/xbox_gencpp.dir/build
 .PHONY : xbox_gencpp/fast
+
+# Convenience name for target.
+xbox/CMakeFiles/mqs_teleop_feedback.dir/rule:
+	cd /home/lab/mqs/build && $(MAKE) -f CMakeFiles/Makefile2 xbox/CMakeFiles/mqs_teleop_feedback.dir/rule
+.PHONY : xbox/CMakeFiles/mqs_teleop_feedback.dir/rule
+
+# Convenience name for target.
+mqs_teleop_feedback: xbox/CMakeFiles/mqs_teleop_feedback.dir/rule
+
+.PHONY : mqs_teleop_feedback
+
+# fast build rule for target.
+mqs_teleop_feedback/fast:
+	cd /home/lab/mqs/build && $(MAKE) -f xbox/CMakeFiles/mqs_teleop_feedback.dir/build.make xbox/CMakeFiles/mqs_teleop_feedback.dir/build
+.PHONY : mqs_teleop_feedback/fast
 
 # Convenience name for target.
 xbox/CMakeFiles/_xbox_generate_messages_check_deps_land.dir/rule:
@@ -423,6 +438,36 @@ xbox_generate_messages_lisp/fast:
 .PHONY : xbox_generate_messages_lisp/fast
 
 # Convenience name for target.
+xbox/CMakeFiles/run_tests_xbox.dir/rule:
+	cd /home/lab/mqs/build && $(MAKE) -f CMakeFiles/Makefile2 xbox/CMakeFiles/run_tests_xbox.dir/rule
+.PHONY : xbox/CMakeFiles/run_tests_xbox.dir/rule
+
+# Convenience name for target.
+run_tests_xbox: xbox/CMakeFiles/run_tests_xbox.dir/rule
+
+.PHONY : run_tests_xbox
+
+# fast build rule for target.
+run_tests_xbox/fast:
+	cd /home/lab/mqs/build && $(MAKE) -f xbox/CMakeFiles/run_tests_xbox.dir/build.make xbox/CMakeFiles/run_tests_xbox.dir/build
+.PHONY : run_tests_xbox/fast
+
+# Convenience name for target.
+xbox/CMakeFiles/xbox_genlisp.dir/rule:
+	cd /home/lab/mqs/build && $(MAKE) -f CMakeFiles/Makefile2 xbox/CMakeFiles/xbox_genlisp.dir/rule
+.PHONY : xbox/CMakeFiles/xbox_genlisp.dir/rule
+
+# Convenience name for target.
+xbox_genlisp: xbox/CMakeFiles/xbox_genlisp.dir/rule
+
+.PHONY : xbox_genlisp
+
+# fast build rule for target.
+xbox_genlisp/fast:
+	cd /home/lab/mqs/build && $(MAKE) -f xbox/CMakeFiles/xbox_genlisp.dir/build.make xbox/CMakeFiles/xbox_genlisp.dir/build
+.PHONY : xbox_genlisp/fast
+
+# Convenience name for target.
 xbox/CMakeFiles/xbox_generate_messages_nodejs.dir/rule:
 	cd /home/lab/mqs/build && $(MAKE) -f CMakeFiles/Makefile2 xbox/CMakeFiles/xbox_generate_messages_nodejs.dir/rule
 .PHONY : xbox/CMakeFiles/xbox_generate_messages_nodejs.dir/rule
@@ -467,36 +512,6 @@ mqs_teleop/fast:
 	cd /home/lab/mqs/build && $(MAKE) -f xbox/CMakeFiles/mqs_teleop.dir/build.make xbox/CMakeFiles/mqs_teleop.dir/build
 .PHONY : mqs_teleop/fast
 
-# Convenience name for target.
-xbox/CMakeFiles/xbox_genlisp.dir/rule:
-	cd /home/lab/mqs/build && $(MAKE) -f CMakeFiles/Makefile2 xbox/CMakeFiles/xbox_genlisp.dir/rule
-.PHONY : xbox/CMakeFiles/xbox_genlisp.dir/rule
-
-# Convenience name for target.
-xbox_genlisp: xbox/CMakeFiles/xbox_genlisp.dir/rule
-
-.PHONY : xbox_genlisp
-
-# fast build rule for target.
-xbox_genlisp/fast:
-	cd /home/lab/mqs/build && $(MAKE) -f xbox/CMakeFiles/xbox_genlisp.dir/build.make xbox/CMakeFiles/xbox_genlisp.dir/build
-.PHONY : xbox_genlisp/fast
-
-# Convenience name for target.
-xbox/CMakeFiles/run_tests_xbox.dir/rule:
-	cd /home/lab/mqs/build && $(MAKE) -f CMakeFiles/Makefile2 xbox/CMakeFiles/run_tests_xbox.dir/rule
-.PHONY : xbox/CMakeFiles/run_tests_xbox.dir/rule
-
-# Convenience name for target.
-run_tests_xbox: xbox/CMakeFiles/run_tests_xbox.dir/rule
-
-.PHONY : run_tests_xbox
-
-# fast build rule for target.
-run_tests_xbox/fast:
-	cd /home/lab/mqs/build && $(MAKE) -f xbox/CMakeFiles/run_tests_xbox.dir/build.make xbox/CMakeFiles/run_tests_xbox.dir/build
-.PHONY : run_tests_xbox/fast
-
 scripts/mqs_teleop.o: scripts/mqs_teleop.cpp.o
 
 .PHONY : scripts/mqs_teleop.o
@@ -524,6 +539,33 @@ scripts/mqs_teleop.cpp.s:
 	cd /home/lab/mqs/build && $(MAKE) -f xbox/CMakeFiles/mqs_teleop.dir/build.make xbox/CMakeFiles/mqs_teleop.dir/scripts/mqs_teleop.cpp.s
 .PHONY : scripts/mqs_teleop.cpp.s
 
+scripts/mqs_teleop_feedback.o: scripts/mqs_teleop_feedback.cpp.o
+
+.PHONY : scripts/mqs_teleop_feedback.o
+
+# target to build an object file
+scripts/mqs_teleop_feedback.cpp.o:
+	cd /home/lab/mqs/build && $(MAKE) -f xbox/CMakeFiles/mqs_teleop_feedback.dir/build.make xbox/CMakeFiles/mqs_teleop_feedback.dir/scripts/mqs_teleop_feedback.cpp.o
+.PHONY : scripts/mqs_teleop_feedback.cpp.o
+
+scripts/mqs_teleop_feedback.i: scripts/mqs_teleop_feedback.cpp.i
+
+.PHONY : scripts/mqs_teleop_feedback.i
+
+# target to preprocess a source file
+scripts/mqs_teleop_feedback.cpp.i:
+	cd /home/lab/mqs/build && $(MAKE) -f xbox/CMakeFiles/mqs_teleop_feedback.dir/build.make xbox/CMakeFiles/mqs_teleop_feedback.dir/scripts/mqs_teleop_feedback.cpp.i
+.PHONY : scripts/mqs_teleop_feedback.cpp.i
+
+scripts/mqs_teleop_feedback.s: scripts/mqs_teleop_feedback.cpp.s
+
+.PHONY : scripts/mqs_teleop_feedback.s
+
+# target to generate assembly for a file
+scripts/mqs_teleop_feedback.cpp.s:
+	cd /home/lab/mqs/build && $(MAKE) -f xbox/CMakeFiles/mqs_teleop_feedback.dir/build.make xbox/CMakeFiles/mqs_teleop_feedback.dir/scripts/mqs_teleop_feedback.cpp.s
+.PHONY : scripts/mqs_teleop_feedback.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -532,7 +574,6 @@ help:
 	@echo "... depend"
 	@echo "... install"
 	@echo "... list_install_components"
-	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... install/strip"
 	@echo "... clean_test_results_xbox"
@@ -540,6 +581,8 @@ help:
 	@echo "... _run_tests_xbox_roslaunch-check"
 	@echo "... _run_tests_xbox"
 	@echo "... xbox_gencpp"
+	@echo "... rebuild_cache"
+	@echo "... mqs_teleop_feedback"
 	@echo "... _xbox_generate_messages_check_deps_land"
 	@echo "... run_tests_xbox_roslaunch-check_launch"
 	@echo "... _xbox_generate_messages_check_deps_marine"
@@ -553,15 +596,18 @@ help:
 	@echo "... xbox_geneus"
 	@echo "... run_tests_xbox_roslaunch-check"
 	@echo "... xbox_generate_messages_lisp"
+	@echo "... run_tests_xbox"
+	@echo "... xbox_genlisp"
 	@echo "... install/local"
 	@echo "... xbox_generate_messages_nodejs"
 	@echo "... xbox_generate_messages_py"
 	@echo "... mqs_teleop"
-	@echo "... xbox_genlisp"
-	@echo "... run_tests_xbox"
 	@echo "... scripts/mqs_teleop.o"
 	@echo "... scripts/mqs_teleop.i"
 	@echo "... scripts/mqs_teleop.s"
+	@echo "... scripts/mqs_teleop_feedback.o"
+	@echo "... scripts/mqs_teleop_feedback.i"
+	@echo "... scripts/mqs_teleop_feedback.s"
 .PHONY : help
 
 

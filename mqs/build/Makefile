@@ -1208,6 +1208,19 @@ xbox_gencpp/fast:
 .PHONY : xbox_gencpp/fast
 
 #=============================================================================
+# Target rules for targets named mqs_teleop_feedback
+
+# Build rule for target.
+mqs_teleop_feedback: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 mqs_teleop_feedback
+.PHONY : mqs_teleop_feedback
+
+# fast build rule for target.
+mqs_teleop_feedback/fast:
+	$(MAKE) -f xbox/CMakeFiles/mqs_teleop_feedback.dir/build.make xbox/CMakeFiles/mqs_teleop_feedback.dir/build
+.PHONY : mqs_teleop_feedback/fast
+
+#=============================================================================
 # Target rules for targets named _xbox_generate_messages_check_deps_land
 
 # Build rule for target.
@@ -1364,6 +1377,32 @@ xbox_generate_messages_lisp/fast:
 .PHONY : xbox_generate_messages_lisp/fast
 
 #=============================================================================
+# Target rules for targets named run_tests_xbox
+
+# Build rule for target.
+run_tests_xbox: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 run_tests_xbox
+.PHONY : run_tests_xbox
+
+# fast build rule for target.
+run_tests_xbox/fast:
+	$(MAKE) -f xbox/CMakeFiles/run_tests_xbox.dir/build.make xbox/CMakeFiles/run_tests_xbox.dir/build
+.PHONY : run_tests_xbox/fast
+
+#=============================================================================
+# Target rules for targets named xbox_genlisp
+
+# Build rule for target.
+xbox_genlisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 xbox_genlisp
+.PHONY : xbox_genlisp
+
+# fast build rule for target.
+xbox_genlisp/fast:
+	$(MAKE) -f xbox/CMakeFiles/xbox_genlisp.dir/build.make xbox/CMakeFiles/xbox_genlisp.dir/build
+.PHONY : xbox_genlisp/fast
+
+#=============================================================================
 # Target rules for targets named xbox_generate_messages_nodejs
 
 # Build rule for target.
@@ -1401,32 +1440,6 @@ mqs_teleop: cmake_check_build_system
 mqs_teleop/fast:
 	$(MAKE) -f xbox/CMakeFiles/mqs_teleop.dir/build.make xbox/CMakeFiles/mqs_teleop.dir/build
 .PHONY : mqs_teleop/fast
-
-#=============================================================================
-# Target rules for targets named xbox_genlisp
-
-# Build rule for target.
-xbox_genlisp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 xbox_genlisp
-.PHONY : xbox_genlisp
-
-# fast build rule for target.
-xbox_genlisp/fast:
-	$(MAKE) -f xbox/CMakeFiles/xbox_genlisp.dir/build.make xbox/CMakeFiles/xbox_genlisp.dir/build
-.PHONY : xbox_genlisp/fast
-
-#=============================================================================
-# Target rules for targets named run_tests_xbox
-
-# Build rule for target.
-run_tests_xbox: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 run_tests_xbox
-.PHONY : run_tests_xbox
-
-# fast build rule for target.
-run_tests_xbox/fast:
-	$(MAKE) -f xbox/CMakeFiles/run_tests_xbox.dir/build.make xbox/CMakeFiles/run_tests_xbox.dir/build
-.PHONY : run_tests_xbox/fast
 
 # Help Target
 help:
@@ -1521,6 +1534,7 @@ help:
 	@echo "... _run_tests_xbox_roslaunch-check"
 	@echo "... _run_tests_xbox"
 	@echo "... xbox_gencpp"
+	@echo "... mqs_teleop_feedback"
 	@echo "... _xbox_generate_messages_check_deps_land"
 	@echo "... run_tests_xbox_roslaunch-check_launch"
 	@echo "... _xbox_generate_messages_check_deps_marine"
@@ -1533,11 +1547,11 @@ help:
 	@echo "... xbox_geneus"
 	@echo "... run_tests_xbox_roslaunch-check"
 	@echo "... xbox_generate_messages_lisp"
+	@echo "... run_tests_xbox"
+	@echo "... xbox_genlisp"
 	@echo "... xbox_generate_messages_nodejs"
 	@echo "... xbox_generate_messages_py"
 	@echo "... mqs_teleop"
-	@echo "... xbox_genlisp"
-	@echo "... run_tests_xbox"
 .PHONY : help
 
 

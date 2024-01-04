@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/home/lab/mqs/devel/include/xbee/auto_ctrl.h
+/home/lab/mqs/devel/include/xbox/land.h
 string
 -
 vector
@@ -22,7 +22,7 @@ ros/builtin_message_traits.h
 ros/message_operations.h
 -
 
-/home/lab/mqs/devel/include/xbee/cmd_ctrl.h
+/home/lab/mqs/devel/include/xbox/marine.h
 string
 -
 vector
@@ -38,7 +38,7 @@ ros/builtin_message_traits.h
 ros/message_operations.h
 -
 
-/home/lab/mqs/devel/include/xbee/mqs_ctrl.h
+/home/lab/mqs/devel/include/xbox/op.h
 string
 -
 vector
@@ -54,16 +54,20 @@ ros/builtin_message_traits.h
 ros/message_operations.h
 -
 
-/home/lab/mqs/src/xbee/src/mqs_handshake.cpp
+/home/lab/mqs/src/xbox/scripts/mqs_teleop_feedback.cpp
 ros/ros.h
 -
-xbee/cmd_ctrl.h
+xbox/land.h
 -
-xbee/auto_ctrl.h
+xbox/marine.h
 -
-xbee/mqs_ctrl.h
+xbox/op.h
 -
-std_msgs/Bool.h
+sensor_msgs/JoyFeedbackArray.h
+-
+string
+-
+unordered_map
 -
 std_msgs/Float32.h
 -
@@ -714,7 +718,7 @@ ros/forwards.h
 
 /opt/ros/melodic/include/rosconsole/macros_generated.h
 
-/opt/ros/melodic/include/std_msgs/Bool.h
+/opt/ros/melodic/include/sensor_msgs/JoyFeedback.h
 string
 -
 vector
@@ -728,6 +732,24 @@ ros/serialization.h
 ros/builtin_message_traits.h
 -
 ros/message_operations.h
+-
+
+/opt/ros/melodic/include/sensor_msgs/JoyFeedbackArray.h
+string
+-
+vector
+-
+map
+-
+ros/types.h
+-
+ros/serialization.h
+-
+ros/builtin_message_traits.h
+-
+ros/message_operations.h
+-
+sensor_msgs/JoyFeedback.h
 -
 
 /opt/ros/melodic/include/std_msgs/Float32.h

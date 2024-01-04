@@ -11,14 +11,6 @@
 
 	<!-- MQS Teleop Node-->
 	<node pkg="xbox" type="mqs_teleop" name="teleop"/>
-	<!-- Axes parameters-->
-	<!-- Values already set in mqs_teleop.cpp
-		<param name="steer_marine" value="0" type="int" />
-		<param name="reverse" value="5" type="int"/>
-		<param name="steer_land" value="2" type="int" />
-		<param name="throttle" value="3" type="int" /> 
-		<param name="forward" value="4" type="int" /> 
-	-->
 
 	<param name="scale_steer_marine" value="127" type="int" />
 	<param name="scale_reverse" value="64" type="int" />
@@ -32,6 +24,10 @@
 	<param name="shift_steer_land" value="127" type="int"/>
 	<param name="shift_throttle" value="0" type="int"/>
 	<param name="shift_forward" value="191" type="int"/>
+
+	<!-- MQS TELEOP FEEDBACK -->
+	<node pkg="xbox" type="mqs_teleop_feedback" name="mqs_teleop_feedback"/>
+	<param name="force_feedback" value = "75" type="double"/> <!-- Set between 0% and 100% for force feedback-->
 
 	<!-- Xbee Node -->
 	<node pkg="xbee" type="mqs_xbee.py" name="mqs_xbee" />
@@ -51,7 +47,8 @@
 
 	<!-- mqs_rw_csv_script Node -->
 	<node pkg="xbee" type="mqs_rw_csv_script.py" name="mqs_rw_csv_script" />
-    <param name ="script_path" value="/home/lab/Desktop/ROS_Scripts/Test01.csv" type="string"/> <!-- Points to Maneuver scripting file -->
+    <!-- Script Path -->
+	<param name ="script_path" value="/home/lab/Desktop/ROS_Scripts/Test01.csv" type="string"/> <!-- Points to Maneuver scripting file -->
 	<!-- Wheel Retraction -->
 	<param name="auto_wheels_up_time" value="-1" type="double" /> <!--time when wheel retraction is activated; -1 to turn off-->
 

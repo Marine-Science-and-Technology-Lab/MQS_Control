@@ -199,7 +199,7 @@
             fresh_joy_count += 1;
             if(fresh_joy_count > mqs_joy_timeout)
             {
-                ROS_INFO("Joystick Strike out occured...preparring to abort!");
+                ROS_WARN("Joystick Strike out occured...preparring to abort!");
                 //trigger an abort if a strike out occurs
                 mqs_ctrl_.cmds[1] = 127; //stop wheels
                 mqs_ctrl_.cmds[2] = 0; //stop jet
